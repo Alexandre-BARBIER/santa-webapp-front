@@ -1,11 +1,12 @@
 <script setup>
   import { ref, computed } from 'vue'
   import { useRouter } from 'vue-router'
-  import config from '@config/api_config.json';
+  import config from '@config/config.json';
   import zxcvbn from 'zxcvbn';
 
   // Destructure the API IP and port from the configuration object
   const { ip, protocol } = config.api;
+  const minLengthPassword = config.minLengthPassword;
   const apiSignupUrl = `${protocol}://${ip}/api/signup`;
   const apiGetMyId = `${protocol}://${ip}/api/myprofile`
 
@@ -39,8 +40,6 @@
   }
   redirectIfLoggedIn()
 
-
-  const minLengthPassword = 10 // fetch from back eventually
 
   const resultMessage = ref("");
   const resultColor = ref("");

@@ -1,6 +1,6 @@
 <script setup>
   import { ref } from 'vue'
-  import config from '@config/api_config.json';
+  import config from '@config/config.json';
   import { useRoute, useRouter } from 'vue-router'
 
   // May use afterwards, so keep-it

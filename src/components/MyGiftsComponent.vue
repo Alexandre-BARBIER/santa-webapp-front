@@ -1,6 +1,6 @@
 <script setup>
   import { ref, onMounted } from 'vue'
-  import config from '@config/api_config.json';
+  import config from '@config/config.json';
   import { useRouter } from 'vue-router'
 
   const router = useRouter()

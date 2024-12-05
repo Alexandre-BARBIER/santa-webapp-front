@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
-import config from '@config/api_config.json'
+import config from '@config/config.json'
 import LogoutIcon from './icons/LogoutIcon.vue'
 
 const router = useRouter()

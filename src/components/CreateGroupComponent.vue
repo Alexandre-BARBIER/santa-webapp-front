@@ -1,6 +1,6 @@
 <script setup>
   import { ref } from 'vue'
-  import config from '@config/api_config.json';
+  import config from '@config/config.json';
 
   // Destructure the API IP and port from the configuration object
   const { ip, protocol } = config.api;
