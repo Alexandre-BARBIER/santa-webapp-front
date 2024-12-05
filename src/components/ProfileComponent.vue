@@ -8,7 +8,7 @@
   const router = useRouter()
   // Destructure the API IP and port from the configuration object
   const { ip, protocol } = config.api;
-  const minLengthPassword = minLengthPassword;
+  const minLengthPassword = config.minLengthPassword;
   const apiProfileUrl = `${protocol}://${ip}/api/profile/${route.params.id}`;
   const apiUpdateUrl = `${protocol}://${ip}/api/changeprofile`;
   const apiPasswordUrl = `${protocol}://${ip}/api/changepassword`;
