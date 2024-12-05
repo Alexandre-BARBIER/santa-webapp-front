@@ -314,7 +314,7 @@
         <input required autocomplete="new-password" placeholder="Enter your old password" type="password" name="password" id="passwordInput" v-model="passwordInput" @input="evaluatePasswordStrength">
 
         <label for="newPasswordInput">New Password*</label>
-        <input required :class="{ wrong: newPasswordInput.length < (minLengthPassword-1) }" :minlength="minLengthPassword" autocomplete="new-password" placeholder="Enter your new password" type="password" name="newPassword" id="newPasswordInput" v-model="newPasswordInput" @input="evaluatePasswordStrength">
+        <input required :class="{ wrong: newPasswordInput.length <= (minLengthPassword-1) }" :minlength="minLengthPassword" autocomplete="new-password" placeholder="Enter your new password" type="password" name="newPassword" id="newPasswordInput" v-model="newPasswordInput" @input="evaluatePasswordStrength">
         
         <div></div>
         <div class="password-strength-bar" 
