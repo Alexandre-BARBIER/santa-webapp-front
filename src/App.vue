@@ -1,7 +1,5 @@
-
 <script setup>
-import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
-
+import { ref, onMounted, onUnmounted } from 'vue'
 import { RouterView } from 'vue-router'
 
 import IconNPELogo from '@components/icons/IconNPELogo.vue'
@@ -9,17 +7,80 @@ import HelloWorld from '@components/HelloWorld.vue'
 import Banner from '@components/Banner.vue'
 import Footer from '@components/Footer.vue'
 
+// Canvas setup
+const canvasRef = ref(null)
 
-const scrollTop = ref(window.scrollY)
+function createSnowflake(canvas) {
+  const ctx = canvas.getContext("2d")
+  const snowflakes = []
 
-// if distance < rayon de 80px (par exemple)
-// on bouge les snowflakes
-// sinon on n'y touche pas
-// l'effet diminue plus on est loin
-// du genre : 79px : facteur 0.1, 1px : 0.9
-// trop complexe maintenant, on essaiera plus tard
+  function initSnowflakes() {
+    const count = 150
+    for (let i = 0; i < count; i++) {
+      snowflakes.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 3 + 2,
+        speed: Math.random() + 0.5,
+        opacity: Math.random(),
+        dx:(Math.random() - 0.5) * 0.5
+      })
+    }
+  }
 
+  function drawSnowflakes() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.fillStyle = "#fff"
+    snowflakes.forEach((flake) => {
+      ctx.globalAlpha = flake.opacity
+      ctx.beginPath()
+      ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2)
+      ctx.closePath()
+      ctx.fill()
+    })
+  }
 
+  function updateSnowflakes() {
+    snowflakes.forEach((flake) => {
+      flake.y += flake.speed
+      flake.x += flake.dx
+      if (flake.y > canvas.height) {
+        flake.y = -flake.radius
+        flake.x = Math.random() * canvas.width
+      }
+      if (Math.random() < 0.02) { // Adjust randomness frequency as needed
+        flake.dx += (Math.random() - 0.5) * 0.1; // Small random change
+        flake.dx = Math.max(-1, Math.min(1, flake.dx)); // Limit lateral speed
+      }
+    })
+  }
+
+  function animate() {
+    drawSnowflakes()
+    updateSnowflakes()
+    requestAnimationFrame(animate)
+  }
+
+  initSnowflakes()
+  animate()
+}
+
+onMounted(() => {
+  const canvas = canvasRef.value
+  canvas.width = window.innerWidth
+  canvas.height = window.innerHeight
+
+  createSnowflake(canvas)
+
+  const resizeHandler = () => {
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+  }
+  window.addEventListener("resize", resizeHandler)
+  onUnmounted(() => {
+    window.removeEventListener("resize", resizeHandler)
+  })
+})
 </script>
 
 <template>
@@ -28,23 +89,13 @@ const scrollTop = ref(window.scrollY)
   </header>
 
   <main>
-    <div class="snowflakes">
-      <div
-      v-for="(i) in 100"
-      class="snowflake"
-      :style="{
-        left: `${Math.random() * 100}vw`,
-        top: `${Math.random() * scrollTop}px`,
-        animationDelay: `${0.1 * i * Math.random()}s`,
-        animationDuration: `${Math.random() * 6 + 4}s`,
-      }">
-      </div>
-    </div>
+    <!-- Canvas for snowflakes -->
+    <canvas ref="canvasRef" class="snowflakes-canvas"></canvas>
 
     <div style="display: flex; justify-content: space-around; align-items: center; margin-bottom: -2em;">
-      <IconNPELogo style="scale: 0.5; justify-self: end;"/>
+      <IconNPELogo style="scale: 0.5; justify-self: end;" />
       <HelloWorld msg="Welcome on the NorthPoleExchange" />
-      <IconNPELogo style="scale: 0.5;"/>
+      <IconNPELogo style="scale: 0.5;" />
     </div>
     <RouterView />
   </main>
@@ -55,31 +106,15 @@ const scrollTop = ref(window.scrollY)
 </template>
 
 <style scoped>
-.snowflakes {
+/* Add styles for the canvas */
+.snowflakes-canvas {
   position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: -1;
-}
-
-.snowflake {
-  z-index: -1;
-  position: absolute;
-  background: #fff;
-  border-radius: 50%;
   pointer-events: none;
-  box-shadow: 0 0 10px #fff;
-  animation: snowfall linear infinite;
-  width: 5px;
-  height: 5px;
-}
-
-@keyframes snowfall {
-  0% {
-    transform: translateY(-5vh);
-  }
-  100% {
-    transform: translateY(99vh);
-  }
 }
 
 header {
@@ -117,31 +152,4 @@ nav a {
 nav a:first-of-type {
   border: 0;
 }
-
-/* @media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-} */
 </style>
