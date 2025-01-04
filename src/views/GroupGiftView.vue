@@ -3,13 +3,14 @@ import GroupGiftComponent from '../components/GroupGiftComponent.vue'
 import SecretGiftComponent from '../components/SecretGiftComponent.vue'
 
 import { ref, onMounted } from 'vue'
-import config from '@config/config.json';
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute();
 const router = useRouter();
 
-const { ip, protocol } = config.api;
+const ip = import.meta.env.API_HOST
+const protocol = import.meta.env.API_PROTOCOL
+
 const apiSecretSatusUrl = `${protocol}://${ip}/api/secret/info/group/${route.params.id}`;
 
 const secret_santa = ref(false);

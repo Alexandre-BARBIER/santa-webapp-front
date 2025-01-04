@@ -1,14 +1,15 @@
 <script setup>
   import { ref, onMounted, computed } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
-  import config from '@config/config.json';
   import zxcvbn from 'zxcvbn';
 
   const route = useRoute()
   const router = useRouter()
-  // Destructure the API IP and port from the configuration object
-  const { ip, protocol } = config.api;
-  const minLengthPassword = config.minLengthPassword;
+  const ip = import.meta.env.API_HOST
+  const protocol = import.meta.env.API_PROTOCOL
+
+  const minLengthPassword = import.meta.env.MIN_LENGTH_PASSWORD;
+  
   const apiProfileUrl = `${protocol}://${ip}/api/profile/${route.params.id}`;
   const apiUpdateUrl = `${protocol}://${ip}/api/changeprofile`;
   const apiPasswordUrl = `${protocol}://${ip}/api/changepassword`;

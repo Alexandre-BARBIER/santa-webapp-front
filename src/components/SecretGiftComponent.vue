@@ -1,13 +1,14 @@
 <script setup>
   import { ref, onMounted, computed } from 'vue'
-  import config from '@config/config.json';
   import { useRoute, useRouter } from 'vue-router'
 
   const route = useRoute()
   const router = useRouter()
-  // Destructure the API IP and port from the configuration object
   // Define api urls
-  const { ip, protocol } = config.api;
+
+  const ip = import.meta.env.API_HOST
+  const protocol = import.meta.env.API_PROTOCOL
+
   const apiSecretGiftsUrl = `${protocol}://${ip}/api/secret/mysecret/group/${route.params.id}`;
   const apiGiftSelectUrl = `${protocol}://${ip}/api/gift/select`;
   const apiGiftUnselectUrl = `${protocol}://${ip}/api/gift/unselect`;

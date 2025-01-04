@@ -1,9 +1,8 @@
 <script setup>
   import { ref } from 'vue'
-  import config from '@config/config.json';
 
-  // Destructure the API IP and port from the configuration object
-  const { ip, protocol } = config.api;
+  const ip = import.meta.env.API_HOST
+  const protocol = import.meta.env.API_PROTOCOL
   const apiJoinGroupUrl = `${protocol}://${ip}/api/group/join`;
 
   const group_id = ref("")

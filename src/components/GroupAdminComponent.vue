@@ -1,11 +1,10 @@
 <script setup>
    import{ ref, onMounted, computed } from 'vue'
-  import config from '@config/config.json';
   import { useRouter } from 'vue-router'
 
   const router = useRouter()
-  // Destructure the API IP and port from the configuration object
-  const { ip, protocol } = config.api;
+  const ip = import.meta.env.API_HOST
+  const protocol = import.meta.env.API_PROTOCOL
   const api_My_Admin_Groups_Url = `${protocol}://${ip}/api/group/admin`;     //GET
   const api_Delete_Group_Url = `${protocol}://${ip}/api/group/delete`;       //DELETE : request.get_json()['groupID']   
   

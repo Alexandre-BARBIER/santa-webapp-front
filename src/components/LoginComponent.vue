@@ -1,14 +1,14 @@
 <script setup>
   import { ref } from 'vue'
-  import config from '@config/config.json';
   import { useRoute, useRouter } from 'vue-router'
 
   // May use afterwards, so keep-it
   const route  = useRoute()
   const router = useRouter()
 
-  // Destructure the API IP and port from the configuration object
-  const { ip, protocol } = config.api;
+  const ip = import.meta.env.API_HOST
+  const protocol = import.meta.env.API_PROTOCOL
+
   const apiLoginUrl  = `${protocol}://${ip}/api/login`;
   const apiGetMyId   = `${protocol}://${ip}/api/myprofile`
 

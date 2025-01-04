@@ -1,12 +1,12 @@
 <script setup>
   import { ref, onMounted, computed } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
-  import config from '@config/config.json';
 
   const route = useRoute()
   const router = useRouter()
-  // Destructure the API IP and port from the configuration object
-  const { ip, port, protocol } = config.api;
+  const ip = import.meta.env.API_HOST
+  const protocol = import.meta.env.API_PROTOCOL
+
   const apiSecretInfoUrl = `${protocol}://${ip}/api/secret/info/group/${route.params.id}`;
   const apiSecretRescheduleUrl = `${protocol}://${ip}/api/secret/reschedule`;
   const apiSecretStartUrl = `${protocol}://${ip}/api/secret/start`;
