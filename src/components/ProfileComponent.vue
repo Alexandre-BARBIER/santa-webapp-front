@@ -182,6 +182,10 @@
               color = 'red';
               message = 'Login already used';
               break;
+          case 'Email already used':
+              color = 'red'; 
+              message = 'Email already used';
+              break;
           case 'Incorrect format':
               color = 'dodgerblue';
               message = 'Incorrect format';
