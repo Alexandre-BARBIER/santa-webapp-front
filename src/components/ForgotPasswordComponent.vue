@@ -81,10 +81,9 @@
   <form @submit.prevent="requestPasswordReset">
     <fieldset>
       <legend>Forgotten Password</legend>
-      <span style="color: crimson; font-style: italic; margin-bottom: 0.8em;" class="wrong" v-show="wrongCredentials">Invalid credentials</span>
       <div class="form-wrapper grid-wrapper">
           <label for="emailInput">Email Address</label>
-          <input :class="{ wrong: wrongCredentials }" required autocomplete="off" placeholder="Enter your email address" id="emailInput" name="email" type="text" v-model="usernameInput">
+          <input required autocomplete="off" placeholder="Enter your email address" id="emailInput" name="email" type="text" v-model="emailInput">
       </div>
       
       <button type="submit">Forgot Password!</button>
