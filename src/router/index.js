@@ -8,6 +8,7 @@ import GroupView from '@/views/GroupView.vue'
 import MyGiftsView from '@/views/MyGiftsView.vue'
 import GroupGiftView from '@/views/GroupGiftView.vue'
 import GroupAdminView from '@/views/GroupAdminView.vue'
+import ForgotPasswordView from '@/views/ForgotPasswordView.vue'
 
 
 const router = createRouter({
@@ -44,6 +45,15 @@ const router = createRouter({
         displayOnBanner: true
       },
       component: LoginView,
+    },
+    {
+      path: "/forgot",
+      name: "Forgot Password",
+      meta: {
+        requiresAuth: false,
+        displayOnBanner: false
+      },
+      component: ForgotPasswordView,
     },
     {
       path: '/signup',

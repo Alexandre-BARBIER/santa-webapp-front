@@ -9,7 +9,7 @@
 
   // Destructure the API IP and port from the configuration object
   const { ip, protocol } = config.api;
-  const apiLoginUrl  = `${protocol}://${ip}/api/login`;
+  const apiForgotPasswordUrl  = `${protocol}://${ip}/api/forgotpassword`;
   const apiGetMyId   = `${protocol}://${ip}/api/myprofile`
 
   const wrongCredentials = ref(false)
@@ -43,13 +43,10 @@
   }
   redirectIfLoggedIn()
 
-  const usernameInput = ref("")
-  const passwordInput = ref("")
-  const remember_me = ref("false") // Set default remember
+  const emailInput = ref("")
 
-
-  async function requestLogin () {
-    await fetch(apiLoginUrl, {
+  async function requestPasswordReset () {
+    await fetch(apiForgotPasswordUrl, {
       withCredentials: true,
       credentials: 'include',
       method: 'POST',
@@ -59,9 +56,7 @@
       },
       dataType: 'json',
       body: JSON.stringify({
-        login: usernameInput.value,
-        password: passwordInput.value,
-        remember_me: remember_me.value
+        email_address: emailInput.value,
       })
     })
     .then(async (response) => {
@@ -74,41 +69,28 @@
         return new TextDecoder('utf-8').decode(value)
       })
     })
-    .then((stringResponse) => {
+    .then(async (stringResponse) => {
       console.log(stringResponse)
-      if (stringResponse === 'Vous êtes connecté!') {
-        console.log('Logged in')
-        redirectIfLoggedIn()
-      } else {
-        wrongCredentials.value = true
-      }
+      await router.push('/login')
     })
   }
 
 </script>
 
 <template>
-  <form @submit.prevent="requestLogin">
+  <form @submit.prevent="requestPasswordReset">
     <fieldset>
-      <legend>Login</legend>
+      <legend>Forgotten Password</legend>
       <span style="color: crimson; font-style: italic; margin-bottom: 0.8em;" class="wrong" v-show="wrongCredentials">Invalid credentials</span>
       <div class="form-wrapper grid-wrapper">
-          <label for="usernameInput">Username</label>
-          <input :class="{ wrong: wrongCredentials }" required autocomplete="off" placeholder="Enter your username" id="usernameInput" name="username" type="text" v-model="usernameInput">
-          <label for="passwordInput">Password</label>
-          <input :class="{ wrong: wrongCredentials }" required autocomplete="current-password" placeholder="Enter your password" type="password" name="password" id="passwordInput" v-model="passwordInput">
-          <label for="remember_me" class="switch">Remeber Me</label>
-          <label class="switch">
-            <input type="checkbox" id="remember_me" v-model="remember_me" true-value="true" false-value="false">
-            <span class="slider round"></span>
-          </label>
+          <label for="emailInput">Email Address</label>
+          <input :class="{ wrong: wrongCredentials }" required autocomplete="off" placeholder="Enter your email address" id="emailInput" name="email" type="text" v-model="usernameInput">
       </div>
       
-      <button type="submit">Login!</button>
+      <button type="submit">Forgot Password!</button>
 
       <nav>
         <RouterLink class="red" to="/signup">No account? Sign-up!</RouterLink>
-        <RouterLink class="red" to="/forgot">Forgot Password?</RouterLink>
       </nav>
     </fieldset>
   </form>
