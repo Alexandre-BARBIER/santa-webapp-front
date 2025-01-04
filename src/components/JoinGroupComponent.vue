@@ -1,8 +1,8 @@
 <script setup>
   import { ref } from 'vue'
 
-  const ip = import.meta.env.VITE_API_HOST
-  const protocol = import.meta.env.VITE_API_PROTOCOL
+  const ip = import.meta.env.API_HOST
+  const protocol = import.meta.env.API_PROTOCOL
   const apiJoinGroupUrl = `${protocol}://${ip}/api/group/join`;
 
   const group_id = ref("")

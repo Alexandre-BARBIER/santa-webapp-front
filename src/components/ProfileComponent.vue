@@ -5,10 +5,10 @@
 
   const route = useRoute()
   const router = useRouter()
-  const ip = import.meta.env.VITE_API_HOST
-  const protocol = import.meta.env.VITE_API_PROTOCOL
+  const ip = import.meta.env.API_HOST
+  const protocol = import.meta.env.API_PROTOCOL
 
-  const minLengthPassword = import.meta.env.VITE_MIN_LENGTH_PASSWORD;
+  const minLengthPassword = import.meta.env.MIN_LENGTH_PASSWORD;
   
   const apiProfileUrl = `${protocol}://${ip}/api/profile/${route.params.id}`;
   const apiUpdateUrl = `${protocol}://${ip}/api/changeprofile`;
@@ -182,10 +182,6 @@
           case 'Login already used':
               color = 'red';
               message = 'Login already used';
-              break;
-          case 'Email already used':
-              color = 'red'; 
-              message = 'Email already used';
               break;
           case 'Incorrect format':
               color = 'dodgerblue';

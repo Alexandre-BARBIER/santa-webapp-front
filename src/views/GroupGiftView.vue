@@ -8,8 +8,8 @@ import { useRoute, useRouter } from 'vue-router'
 const route = useRoute();
 const router = useRouter();
 
-const ip = import.meta.env.VITE_API_HOST
-const protocol = import.meta.env.VITE_API_PROTOCOL
+const ip = import.meta.env.API_HOST
+const protocol = import.meta.env.API_PROTOCOL
 
 const apiSecretSatusUrl = `${protocol}://${ip}/api/secret/info/group/${route.params.id}`;
 

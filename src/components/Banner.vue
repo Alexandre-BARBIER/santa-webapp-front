@@ -9,8 +9,8 @@ const isLoggedIn = ref(false)
 const userId = ref()
 const bannerRoutes = ref([])
 
-const ip = import.meta.env.VITE_API_HOST
-const protocol = import.meta.env.VITE_API_PROTOCOL
+const ip = import.meta.env.API_HOST
+const protocol = import.meta.env.API_PROTOCOL
 
 const apiGetMyId = `${protocol}://${ip}/api/myprofile`
 const apiLogoutUser = `${protocol}://${ip}/api/logout`

@@ -5,8 +5,8 @@
   const route = useRoute()
   const router = useRouter()
   // Define api urls
-  const ip = import.meta.env.VITE_API_HOST
-  const protocol = import.meta.env.VITE_API_PROTOCOL
+  const ip = import.meta.env.API_HOST
+  const protocol = import.meta.env.API_PROTOCOL
 
   const apiGroupGiftsUrl = `${protocol}://${ip}/api/gift/group/${route.params.id}`;
   const apiGiftSelectUrl = `${protocol}://${ip}/api/gift/select`;

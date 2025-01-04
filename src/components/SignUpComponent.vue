@@ -3,10 +3,10 @@
   import { useRouter } from 'vue-router'
   import zxcvbn from 'zxcvbn';
 
-  const ip = import.meta.env.VITE_API_HOST
-  const protocol = import.meta.env.VITE_API_PROTOCOL
+  const ip = import.meta.env.API_HOST
+  const protocol = import.meta.env.API_PROTOCOL
 
-  const minLengthPassword = import.meta.env.VITE_MIN_LENGTH_PASSWORD;
+  const minLengthPassword = import.meta.env.MIN_LENGTH_PASSWORD;
 
   const apiSignupUrl = `${protocol}://${ip}/api/signup`;
   const apiGetMyId = `${protocol}://${ip}/api/myprofile`
@@ -132,10 +132,6 @@
           case 'Login already used':
               color = 'red';
               message = 'Login already used';
-              break;
-          case 'Email already used':
-              color = 'red'; 
-              message = 'Email already used';
               break;
           case 'Incorrect date format':
               color = 'dodgerblue';

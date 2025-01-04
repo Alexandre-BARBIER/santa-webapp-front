@@ -4,8 +4,8 @@
 
   const router = useRouter()
 
-  const ip = import.meta.env.VITE_API_HOST
-  const protocol = import.meta.env.VITE_API_PROTOCOL
+  const ip = import.meta.env.API_HOST
+  const protocol = import.meta.env.API_PROTOCOL
 
   const apiMyGiftsUrl = `${protocol}://${ip}/api/mygifts`;
   const apiGiftDeleteUrl = `${protocol}://${ip}/api/gift/delete`;

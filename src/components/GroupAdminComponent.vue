@@ -3,8 +3,8 @@
   import { useRouter } from 'vue-router'
 
   const router = useRouter()
-  const ip = import.meta.env.VITE_API_HOST
-  const protocol = import.meta.env.VITE_API_PROTOCOL
+  const ip = import.meta.env.API_HOST
+  const protocol = import.meta.env.API_PROTOCOL
   const api_My_Admin_Groups_Url = `${protocol}://${ip}/api/group/admin`;     //GET
   const api_Delete_Group_Url = `${protocol}://${ip}/api/group/delete`;       //DELETE : request.get_json()['groupID']   
   
