@@ -6,8 +6,8 @@
   const route  = useRoute()
   const router = useRouter()
 
-  const ip = import.meta.env.VITE_API_HOST
-  const protocol = import.meta.env.VITE_API_PROTOCOL
+  const ip = process.env.VITE_API_HOST
+  const protocol = process.env.VITE_API_PROTOCOL
 
   const apiLoginUrl  = `${protocol}://${ip}/api/login`;
   const apiGetMyId   = `${protocol}://${ip}/api/myprofile`
