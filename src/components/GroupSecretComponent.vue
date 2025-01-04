@@ -4,8 +4,8 @@
 
   const route = useRoute()
   const router = useRouter()
-  const ip = import.meta.env.API_HOST
-  const protocol = import.meta.env.API_PROTOCOL
+  const ip = import.meta.env.VITE_API_HOST
+  const protocol = import.meta.env.VITE_API_PROTOCOL
 
   const apiSecretInfoUrl = `${protocol}://${ip}/api/secret/info/group/${route.params.id}`;
   const apiSecretRescheduleUrl = `${protocol}://${ip}/api/secret/reschedule`;

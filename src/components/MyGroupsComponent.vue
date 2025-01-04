@@ -4,8 +4,8 @@
   import { useRouter } from 'vue-router'
 
   const router = useRouter()
-  const ip = import.meta.env.API_HOST
-  const protocol = import.meta.env.API_PROTOCOL
+  const ip = import.meta.env.VITE_API_HOST
+  const protocol = import.meta.env.VITE_API_PROTOCOL
   const api_My_Groups_Url = `${protocol}://${ip}/api/mygroups`;            //GET
   const api_Leave_Group_Url = `${protocol}://${ip}/api/group/leave`;       //POST : request.get_json()['groupID']   
 

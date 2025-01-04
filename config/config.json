@@ -1,0 +1,7 @@
+{
+  "api": {
+    "ip": "santa-back.zapy.fr",
+    "protocol": "https"
+  },
+  "minLengthPassword": 10
+}
