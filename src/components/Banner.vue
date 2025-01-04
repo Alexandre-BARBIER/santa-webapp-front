@@ -1,6 +1,7 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
+import config from '@config/config.json'
 import LogoutIcon from './icons/LogoutIcon.vue'
 
 const router = useRouter()
@@ -9,9 +10,7 @@ const isLoggedIn = ref(false)
 const userId = ref()
 const bannerRoutes = ref([])
 
-const ip = import.meta.env.API_HOST
-const protocol = import.meta.env.API_PROTOCOL
-
+const { ip, protocol } = config.api
 const apiGetMyId = `${protocol}://${ip}/api/myprofile`
 const apiLogoutUser = `${protocol}://${ip}/api/logout`
 

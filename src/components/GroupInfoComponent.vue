@@ -1,11 +1,12 @@
 <script setup>
   import { ref, onMounted, computed } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
+  import config from '@config/config.json';
 
   const route = useRoute()
   const router = useRouter()
-  const ip = import.meta.env.API_HOST
-  const protocol = import.meta.env.API_PROTOCOL
+  // Destructure the API IP and port from the configuration object
+  const { ip, port, protocol } = config.api;
   const apiGroupInfoUrl = `${protocol}://${ip}/api/group/info/${route.params.id}`;
   const apiGroupUpdateUrl = `${protocol}://${ip}/api/group/update`;
 
