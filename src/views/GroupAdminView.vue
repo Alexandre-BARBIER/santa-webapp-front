@@ -1,14 +1,15 @@
 <script setup>
 import GroupInfoComponent from '../components/GroupInfoComponent.vue'
 import GroupSecretComponent from '../components/GroupSecretComponent.vue'
-
+import GroupExclusionsComponent from '../components/GroupExclusionsComponent.vue'
 </script>
 
-<template>7
+<template>
 <div class="grid-wrapper">
   <GroupInfoComponent id="GroupInfoComponent"/>
   <GroupSecretComponent id="GroupSecretComponent"/>
 </div>
+<GroupExclusionsComponent id="GroupExclusionsComponent"/>
 </template>
 
 <style scoped>
@@ -24,6 +25,10 @@ import GroupSecretComponent from '../components/GroupSecretComponent.vue'
   #GroupSecretComponent {
     justify-self: start;
   }
-    
-
+  
+  #GroupExclusionsComponent {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+  }
 </style>

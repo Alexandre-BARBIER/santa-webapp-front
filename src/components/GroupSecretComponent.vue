@@ -203,6 +203,10 @@
               color = 'dodgerblue';
               message = 'Incorrect date format';
               break;
+          case 'Cannot create valid pairings with current exclusions':
+              color = 'dodgerblue';
+              message = 'Cannot create valid pairings with current exclusions';
+              break;
           default:
               color = 'black';
               message = 'Unexpected response.';
