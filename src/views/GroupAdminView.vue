@@ -8,8 +8,8 @@ import GroupExclusionsComponent from '../components/GroupExclusionsComponent.vue
 <div class="grid-wrapper">
   <GroupInfoComponent id="GroupInfoComponent"/>
   <GroupSecretComponent id="GroupSecretComponent"/>
-  <GroupExclusionsComponent id="GroupExclusionsComponent"/>
 </div>
+<GroupExclusionsComponent id="GroupExclusionsComponent"/>
 </template>
 
 <style scoped>
@@ -27,9 +27,8 @@ import GroupExclusionsComponent from '../components/GroupExclusionsComponent.vue
   }
   
   #GroupExclusionsComponent {
-    justify-self: center;
-    margin-top: 2em;
     width: 100%;
-    max-width: 800px;
+    max-width: 600px;
+    margin: auto;
   }
 </style>

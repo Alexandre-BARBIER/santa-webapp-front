@@ -139,7 +139,7 @@
         <legend>Secret Santa Exclusions</legend>
         <div v-if="resultMessage" :style="{ color: resultColor }">{{ resultMessage }}</div>
         
-        <p>Add exclusions to prevent certain members from being paired with each other.</p>
+        <p class="instructions">Add exclusions to prevent certain members from being paired with each other.</p>
         
         <div class="form-wrapper grid-wrapper">
           <label for="userSelect">User</label>
@@ -192,6 +192,10 @@
 </template>
 
 <style scoped>
+  .instructions {
+    margin-bottom: 2em; /* Add vertical space after the instructions text */
+  }
+  
   .info-box {
     margin-top: 1em;
     padding: 1em;
