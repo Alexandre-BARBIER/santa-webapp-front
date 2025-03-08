@@ -100,7 +100,7 @@
       </div>
       <span>Members : </span>
       <li v-for="member in members">
-        {{ member }}
+        {{ member.login }}
       </li>
       <button @click="toggleDisplay" class="action">Modify</button>
 
