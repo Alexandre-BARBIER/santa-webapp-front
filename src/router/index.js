@@ -9,6 +9,7 @@ import MyGiftsView from '@/views/MyGiftsView.vue'
 import GroupGiftView from '@/views/GroupGiftView.vue'
 import GroupAdminView from '@/views/GroupAdminView.vue'
 import ForgotPasswordView from '@/views/ForgotPasswordView.vue'
+import ResetPasswordView from '@/views/ResetPasswordView.vue'
 
 
 const router = createRouter({
@@ -54,6 +55,15 @@ const router = createRouter({
         displayOnBanner: false
       },
       component: ForgotPasswordView,
+    },
+    {
+      path: "/reset-password/:token",
+      name: "Reset Password",
+      meta: {
+        requiresAuth: false,
+        displayOnBanner: false
+      },
+      component: ResetPasswordView,
     },
     {
       path: '/signup',

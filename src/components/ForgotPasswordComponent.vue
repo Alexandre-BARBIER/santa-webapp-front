@@ -44,8 +44,13 @@
   redirectIfLoggedIn()
 
   const emailInput = ref("")
+  const successMessage = ref("")
+  const errorMessage = ref("")
 
   async function requestPasswordReset () {
+    successMessage.value = ""
+    errorMessage.value = ""
+    
     await fetch(apiForgotPasswordUrl, {
       withCredentials: true,
       credentials: 'include',
@@ -60,18 +65,16 @@
       })
     })
     .then(async (response) => {
-      const reader = response.body.getReader()
-      return reader.read().then(({ done, value }) => {
-        if (done) {
-          reader.cancel()
-          return
-        }
-        return new TextDecoder('utf-8').decode(value)
-      })
+      const data = await response.json()
+      if (response.ok) {
+        successMessage.value = "If an account exists with this email, a password reset link has been sent. Please check your inbox."
+      } else {
+        errorMessage.value = data.error || "An error occurred. Please try again."
+      }
     })
-    .then(async (stringResponse) => {
-      console.log(stringResponse)
-      await router.push('/login')
+    .catch((err) => {
+      console.error(err)
+      errorMessage.value = "An error occurred. Please try again."
     })
   }
 
@@ -81,14 +84,24 @@
   <form @submit.prevent="requestPasswordReset">
     <fieldset>
       <legend>Forgotten Password</legend>
-      <div class="form-wrapper grid-wrapper">
-          <label for="emailInput">Email Address</label>
-          <input required autocomplete="off" placeholder="Enter your email address" id="emailInput" name="email" type="text" v-model="emailInput">
+      
+      <div v-if="successMessage" class="success-message">
+        {{ successMessage }}
       </div>
       
-      <button type="submit">Forgot Password!</button>
+      <div v-if="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+      
+      <div class="form-wrapper grid-wrapper">
+          <label for="emailInput">Email Address</label>
+          <input required autocomplete="off" placeholder="Enter your email address" id="emailInput" name="email" type="email" v-model="emailInput">
+      </div>
+      
+      <button type="submit">Send Reset Link</button>
 
       <nav>
+        <RouterLink class="red" to="/login">Back to Login</RouterLink>
         <RouterLink class="red" to="/signup">No account? Sign-up!</RouterLink>
       </nav>
     </fieldset>
@@ -96,6 +109,24 @@
 </template>
 
 <style scoped>
+
+.success-message {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
 
  /* The switch - the box around the slider */
  .switch {
