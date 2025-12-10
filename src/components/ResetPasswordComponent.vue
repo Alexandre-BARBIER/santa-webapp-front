@@ -213,4 +213,42 @@ nav {
   justify-content: center;
   flex-wrap: wrap;
 }
+
+.password-strength-bar {
+  height: 8px;
+  width: 100%;
+  background-color: #ccc;
+  border-radius: 4px;
+  margin-top: 5px;
+  margin-bottom: 1em;
+  max-width: var( --input-width);
+}
+
+.strength-fill {
+  height: 100%;
+  width: 100%;
+  border-radius: 4px;
+  max-width: calc(var( --input-width) - 2.6em);
+  transition: width 0.3s ease;
+}
+
+.very-weak .strength-fill {
+  background-color: red;
+}
+
+.weak .strength-fill {
+  background-color: orange;
+}
+
+.medium .strength-fill {
+  background-color: yellow;
+}
+
+.strong .strength-fill {
+  background-color: lightgreen;
+}
+
+.very-strong .strength-fill {
+  background-color: green;
+}
 </style>
