@@ -30,7 +30,7 @@
 
   let evaluatePasswordStrength = 0;
   evaluatePasswordStrength = computed(() => {
-    const result = zxcvbn(passwordInput.value);
+    const result = zxcvbn(newPasswordInput.value);
     return result.score; // zxcvbn returns a score from 0 to 4
   });
 
@@ -123,7 +123,7 @@
       </div>
 
       <div class="form-wrapper grid-wrapper">
-        <label for="passwordInput">New Password*</label>
+        <label for="newPasswordInput">New Password*</label>
         <input required :class="{ wrong: newPasswordInput.length <= (minLengthPassword-1) }" :minlength="minLengthPassword" autocomplete="new-password" placeholder="Enter new password" type="password" name="password" id="newPasswordInput" v-model="newPasswordInput" @input="evaluatePasswordStrength">
         <div></div>
         <div class="password-strength-bar" 
@@ -136,10 +136,10 @@
         </div>
 
         <label for="confirmPasswordInput">Confirm Password*</label>
-        <input required :class="{ wrong: passwordInput !=  confirmPasswordInput}" autocomplete="new-password" placeholder="Confirm your password" type="password" name="confirmpassword" id="confirmPasswordInput" v-model="confirmPasswordInput">
+        <input required :class="{ wrong: newPasswordInput !=  confirmPasswordInput}" autocomplete="new-password" placeholder="Confirm your password" type="password" name="confirmpassword" id="confirmPasswordInput" v-model="confirmPasswordInput">
       </div>
       
-      <button type="submit" :disabled="passwordInput !=  confirmPasswordInput || !newPasswordInput || !confirmPasswordInput">Reset Password</button>
+      <button type="submit" :disabled="newPasswordInput !=  confirmPasswordInput || !newPasswordInput || !confirmPasswordInput">Reset Password</button>
 
       <nav>
         <RouterLink class="red" to="/login">Back to Login</RouterLink>
