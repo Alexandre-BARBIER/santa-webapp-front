@@ -6,8 +6,6 @@ import GroupAdminComponent from '../components/GroupAdminComponent.vue'
 </script>
 
 <template>
-    <h1 class="red">Group Page</h1>
-    <h3>Here you can join, create and see groups !</h3>
     <JoinGroupComponent @groupJoined="handleGroupJoined" />
     <CreateGroupComponent @groupCreated="handleGroupJoined"/>
     <br><br>

@@ -108,6 +108,10 @@ input.wrong {
   outline: solid var(--wrong) var(--input-border-outline);
 }
 
+select {
+  width: var(--input-width);
+}
+
 button:not(:disabled) {
   cursor: pointer;
 }
