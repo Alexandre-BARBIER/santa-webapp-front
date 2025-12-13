@@ -20,7 +20,7 @@ const visibleRoutes = computed(() => {
 
 const burgerMenuRoutes = computed(() => {
   if (window.innerWidth <= 640) {
-    return bannerRoutes.value.slice(3)
+    return bannerRoutes.value.slice(1)
   }
   return []
 })
@@ -115,37 +115,43 @@ function closeBurgerMenu() {
 </script>
 
 <template>
-<nav class="header">
-  <RouterLink class="banner" v-for="(route) in visibleRoutes" :to="route.path" @click="closeBurgerMenu">{{ route.name }}</RouterLink>
-  
-  <div v-if="showBurgerMenu" class="burger-icon" @click="toggleBurgerMenu">
-    <div class="burger-line"></div>
-    <div class="burger-line"></div>
-    <div class="burger-line"></div>
-  </div>
-  
-  <div v-show="isLoggedIn && !showBurgerMenu" @click="logoutUser" class="right logout">
-    <span>Logout</span>
-    <LogoutIcon class="logout-display" style="scale: 0.8;" />
-  </div>
-  
-  <transition name="slide">
-    <div v-if="isBurgerMenuOpen && showBurgerMenu" class="burger-menu">
-      <RouterLink 
-        class="burger-menu-item" 
-        v-for="(route) in burgerMenuRoutes" 
-        :to="route.path"
-        @click="closeBurgerMenu"
-      >
-        {{ route.name }}
-      </RouterLink>
-      <div v-if="isLoggedIn" @click="logoutUser" class="burger-menu-item logout-item">
-        <span>Logout</span>
-        <LogoutIcon class="logout-display" style="scale: 0.8;" />
-      </div>
-    </div>
+<div>
+  <transition name="fade">
+    <div v-if="isBurgerMenuOpen && showBurgerMenu" class="overlay" @click="closeBurgerMenu"></div>
   </transition>
-</nav>
+  
+  <nav class="header">
+    <RouterLink class="banner" v-for="(route) in visibleRoutes" :to="route.path" @click="closeBurgerMenu">{{ route.name }}</RouterLink>
+    
+    <div v-if="showBurgerMenu" class="burger-icon" @click="toggleBurgerMenu">
+      <div class="burger-line"></div>
+      <div class="burger-line"></div>
+      <div class="burger-line"></div>
+    </div>
+    
+    <div v-show="isLoggedIn && !showBurgerMenu" @click="logoutUser" class="right logout">
+      <span>Logout</span>
+      <LogoutIcon class="logout-display" style="scale: 0.8;" />
+    </div>
+    
+    <transition name="slide">
+      <div v-if="isBurgerMenuOpen && showBurgerMenu" class="burger-menu">
+        <RouterLink 
+          class="burger-menu-item" 
+          v-for="(route) in burgerMenuRoutes" 
+          :to="route.path"
+          @click="closeBurgerMenu"
+        >
+          {{ route.name }}
+        </RouterLink>
+        <div v-if="isLoggedIn" @click="logoutUser" class="burger-menu-item logout-item">
+          <span>Logout</span>
+          <LogoutIcon class="logout-display" style="scale: 0.8;" />
+        </div>
+      </div>
+    </transition>
+  </nav>
+</div>
 </template>
 
 <style scoped>
@@ -179,9 +185,10 @@ a.banner {
 
 .header {
   position: fixed;
-  z-index: 1;
+  z-index: 1001;
   top: 0;
   left: 0;
+  width: 100%;
 
   margin: 0;
 
@@ -207,7 +214,7 @@ a.banner {
   gap: 4px;
   cursor: pointer;
   padding: 8px;
-  z-index: 3;
+  z-index: 1003;
 }
 
 .burger-line {
@@ -227,7 +234,7 @@ a.banner {
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 2;
+  z-index: 1002;
 }
 
 .burger-menu-item {
@@ -248,6 +255,25 @@ a.banner {
   cursor: pointer;
   gap: 0.5em;
   justify-content: flex-start;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
 }
 
 .slide-enter-active, .slide-leave-active {
