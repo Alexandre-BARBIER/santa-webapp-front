@@ -56,6 +56,8 @@
 
   --banner-height: 2.8rem;
   --footer-height: 3.6rem;
+  --form-padding: 2em;
+  --fieldset-padding: 1em 2em;
 
   --input-border-outline: 1px;
 
@@ -123,4 +125,34 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tablet breakpoint */
+@media (max-width: 768px) {
+  :root {
+    --input-width: 16em;
+    --section-gap: 80px;
+    --form-padding: 1.5em;
+    --fieldset-padding: 1em 1.5em;
+  }
+
+  body {
+    font-size: 14px;
+  }
+}
+
+/* Mobile breakpoint */
+@media (max-width: 480px) {
+  :root {
+    --input-width: calc(100vw - 4em);
+    --section-gap: 40px;
+    --form-padding: 1em;
+    --fieldset-padding: 0.8em 1em;
+    --banner-height: 2.5rem;
+    --footer-height: 3.2rem;
+  }
+
+  body {
+    font-size: 13px;
+  }
 }

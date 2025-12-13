@@ -46,4 +46,42 @@ nav > a {
 nav > a:first-child {
   margin-left: 0.6em;
 }
+
+@media (max-width: 640px) {
+  nav.footer {
+    gap: 0.5rem;
+  }
+
+  nav > a {
+    font-size: 0.9rem;
+    padding-inline: 0.6em;
+  }
+
+  nav > a:first-child {
+    margin-left: 0.4em;
+  }
+
+  a.banner {
+    padding-inline: 0.7em;
+  }
+}
+
+@media (max-width: 480px) {
+  nav.footer {
+    gap: 0.3rem;
+  }
+
+  nav > a {
+    font-size: 0.8rem;
+    padding-inline: 0.4em;
+  }
+
+  nav > a:first-child {
+    margin-left: 0.2em;
+  }
+
+  a.banner {
+    padding-inline: 0.5em;
+  }
+}
 </style>

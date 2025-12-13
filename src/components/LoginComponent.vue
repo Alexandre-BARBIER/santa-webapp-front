@@ -183,6 +183,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 0.5em;
   }
 
   a.forgot-password-link {
@@ -191,5 +192,45 @@
 
   a.forgot-password-link:hover {
     background-color: rgba(220, 20, 60, 0.1);
+  }
+
+  @media (max-width: 640px) {
+    .switch {
+      width: 50px;
+      height: 28px;
+    }
+
+    .slider:before {
+      height: 22px;
+      width: 22px;
+      left: 3px;
+      bottom: 3px;
+    }
+
+    #remember_me:checked + .slider:before {
+      transform: translateX(22px);
+    }
+  }
+
+  @media (max-width: 480px) {
+    nav {
+      font-size: 0.9em;
+    }
+
+    .switch {
+      width: 45px;
+      height: 25px;
+    }
+
+    .slider:before {
+      height: 19px;
+      width: 19px;
+      left: 3px;
+      bottom: 3px;
+    }
+
+    #remember_me:checked + .slider:before {
+      transform: translateX(19px);
+    }
   }
 </style>

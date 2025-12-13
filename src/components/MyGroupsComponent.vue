@@ -154,4 +154,32 @@ function redirect_to_group(groupID) {
   transition: all 0.3s ease;
 }
 
+@media (max-width: 640px) {
+  .leave-group-btn {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  #group_button {
+    padding: 6px;
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  .leave-group-btn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  #group_button {
+    padding: 4px;
+    font-size: 0.85em;
+  }
+
+  #group_button:hover {
+    transform: scale(1);
+  }
+}
+
 </style>

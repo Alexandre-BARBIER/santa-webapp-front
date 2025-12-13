@@ -128,5 +128,41 @@
 
 .slider.round:before {
   border-radius: 50%;
-} 
+}
+
+@media (max-width: 640px) {
+  .switch {
+    width: 50px;
+    height: 28px;
+  }
+
+  .slider:before {
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+  }
+
+  #visibility_switch:checked + .slider:before {
+    transform: translateX(22px);
+  }
+}
+
+@media (max-width: 480px) {
+  .switch {
+    width: 45px;
+    height: 25px;
+  }
+
+  .slider:before {
+    height: 19px;
+    width: 19px;
+    left: 3px;
+    bottom: 3px;
+  }
+
+  #visibility_switch:checked + .slider:before {
+    transform: translateX(19px);
+  }
+}
 </style>

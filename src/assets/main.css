@@ -31,7 +31,7 @@ a,
 }
 
 form {
-  margin: 2em;
+  margin: var(--form-padding);
   
   display: flex;
   flex-direction: column;
@@ -40,7 +40,7 @@ form {
 
 .tabview{
     /* width: fit-content; */
-    margin: 2em;
+    margin: var(--form-padding);
   
     display: flex;
     flex-direction: column;
@@ -57,7 +57,8 @@ fieldset {
   background-color: rgba(253, 241, 241, 0.8);
   border: solid rgba(128, 128, 128, 0.5) 1px;
   border-radius: 1em;
-  padding: 1em 2em;
+  padding: var(--fieldset-padding);
+  max-width: calc(100vw - 2em);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -240,7 +241,10 @@ legend {
   font-size: 0.9em;
   font-family: sans-serif;
   min-width: 400px;
+  max-width: 100%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  overflow-x: auto;
+  display: block;
 }
 .styled-table thead tr {
   background-color: rgb(145, 0, 20);
@@ -278,5 +282,63 @@ legend {
   a.red:hover {
     color: var(--lighter-strong-red);
     background-color: hsla(355, 100%, 65%, 0.15);
+  }
+}
+
+/* Mobile responsive styles */
+@media (max-width: 640px) {
+  .styled-table {
+    min-width: 100%;
+    font-size: 0.75em;
+  }
+
+  .styled-table th,
+  .styled-table td {
+    padding: 8px 10px;
+  }
+
+  .grid-wrapper {
+    grid-template-areas: 
+      "a a"
+      "b b"
+      "c c";
+    gap: 0.8em;
+  }
+
+  legend {
+    font-size: medium;
+  }
+
+  button[type=submit],
+  button.action,
+  button.cancel,
+  button.delete,
+  button.select {
+    font-size: 0.9em;
+    padding: 0.4em 0.8em;
+  }
+}
+
+@media (max-width: 480px) {
+  .styled-table {
+    font-size: 0.7em;
+  }
+
+  .styled-table th,
+  .styled-table td {
+    padding: 6px 8px;
+  }
+
+  input[type=text], 
+  input[type=password], 
+  input[type=email], 
+  input[type=date], 
+  input[type=number] {
+    width: 100%;
+    max-width: var(--input-width);
+  }
+
+  .row-flex-wrapper {
+    flex-direction: column;
   }
 }

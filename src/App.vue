@@ -2,8 +2,6 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { RouterView } from 'vue-router'
 
-import IconNPELogo from '@components/icons/IconNPELogo.vue'
-import HelloWorld from '@components/HelloWorld.vue'
 import Banner from '@components/Banner.vue'
 import Footer from '@components/Footer.vue'
 
@@ -91,12 +89,6 @@ onMounted(() => {
   <main>
     <!-- Canvas for snowflakes -->
     <canvas ref="canvasRef" class="snowflakes-canvas"></canvas>
-
-    <div style="display: flex; justify-content: space-around; align-items: center; margin-bottom: -2em;">
-      <IconNPELogo style="scale: 0.5; justify-self: end;" />
-      <HelloWorld msg="Welcome on the NorthPoleExchange" />
-      <IconNPELogo style="scale: 0.5;" />
-    </div>
     <RouterView />
   </main>
 

@@ -1,11 +1,11 @@
 <template>
   <div class="about_text">
-    <h1>Your Privacy Matters: GDPR Compliance at NorthPoleExchange</h1>
+    <h1>Your Privacy Matters: GDPR Compliance at Santa Zapy</h1>
     <p>
         Dear User,
     </p>
     <p>
-        We understand that your privacy is paramount, and we want to assure you that the NorthPoleExchange is fully compliant with the General Data Protection Regulation (GDPR). As such, we take every measure to safeguard your personal information, including your email and birthdate, in accordance with the strictest data protection standards.
+        We understand that your privacy is paramount, and we want to assure you that Santa Zapy is fully compliant with the General Data Protection Regulation (GDPR). As such, we take every measure to safeguard your personal information, including your email and birthdate, in accordance with the strictest data protection standards.
     </p>
     <h2>Why You Can Trust Us:</h2>
     <ol>
@@ -17,14 +17,14 @@
         <li>Data Transfer Safeguards: If your data is transferred outside the European Economic Area (EEA), we ensure adequate safeguards are in place to protect your privacy rights, as mandated by the GDPR.</li>
     </ol>
     <p>
-        Your trust is of utmost importance to us, and we are committed to upholding the highest standards of data protection. If you have any questions or concerns about how we handle your personal information, please don't hesitate to contact our Data Protection Officer at santa@NorthPoleExchange.com.
+        Your trust is of utmost importance to us, and we are committed to upholding the highest standards of data protection. If you have any questions or concerns about how we handle your personal information, please don't hesitate to contact our Data Protection Officer at alexbarbier0307@gmail.com.
     </p>
     <p>
-        Thank you for choosing the NorthPoleExchange. We look forward to serving you while safeguarding your privacy rights.
+        Thank you for choosing Santa Zapy. We look forward to serving you while safeguarding your privacy rights.
     </p>
     <p>
         Warm regards,<br>
-        The NorthPoleExchange developement team
+        The Santa Zapy developement team
     </p>
   </div>
 </template>
