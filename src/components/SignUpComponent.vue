@@ -37,9 +37,11 @@
     .catch((err) => {
       console.error(err)
     })
+    loaded.value = true
   }
   redirectIfLoggedIn()
 
+  const loaded = ref(false)
 
   const resultMessage = ref("");
   const resultColor = ref("");
@@ -158,7 +160,8 @@
 </script>
 
 <template>
-  <form @submit.prevent="requestSignUP">
+  <Transition>
+  <form v-if="loaded" @submit.prevent="requestSignUP">
     <fieldset>
       <legend>Sign-up!</legend>
       <div v-if="resultMessage" :style="{ color: resultColor }">{{ resultMessage }}</div>
@@ -213,11 +216,12 @@
       </nav>
     </fieldset>
   </form>
+  </Transition>
 </template>
 
 <style scoped>
 /* The switch - the box around the slider */
- .switch {
+.switch {
   position: relative;
   display: inline-block;
   width: 60px;
@@ -320,6 +324,16 @@ nav > a.red {
 
 .very-strong .strength-fill {
   background-color: green;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
 

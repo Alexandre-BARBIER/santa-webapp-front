@@ -7,6 +7,7 @@
   const apiJoinGroupUrl = `${protocol}://${ip}/api/group/join`;
   const apiAllGroupsUrl = `${protocol}://${ip}/api/group/all`;
 
+  const loaded = ref(false)
   const groups = ref([])
   const selectedGroup = ref("")
   const input_code = ref("")
@@ -50,6 +51,7 @@
     } finally {
       loading.value = false;
     }
+    loaded.value = true
   }
 
   async function JoinGroup() {
@@ -122,7 +124,8 @@
 </script>
 
 <template>
-  <form @submit.prevent="JoinGroup">
+  <Transition>
+  <form v-if="loaded" @submit.prevent="JoinGroup">
     <fieldset>
       <legend>Join a Group</legend>
       <div v-if="loading" class="loading-spinner">Loading groups...</div>
@@ -145,6 +148,7 @@
       <div v-if="resultMessage" :style="{ color: resultColor }">{{ resultMessage }}</div>
     </fieldset>
   </form>
+  </Transition>
 </template>
 
 <style scoped>
@@ -162,5 +166,14 @@
   border-radius: 2em;
 }
 
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
 /* Add any additional styles you need */
 </style>

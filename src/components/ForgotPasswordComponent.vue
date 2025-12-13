@@ -12,7 +12,7 @@
   const apiForgotPasswordUrl  = `${protocol}://${ip}/api/forgotpassword`;
   const apiGetMyId   = `${protocol}://${ip}/api/myprofile`
 
-  const wrongCredentials = ref(false)
+  const loaded = ref(false)
 
   // Redirects to profile page if logged in
   async function redirectIfLoggedIn () {
@@ -40,6 +40,7 @@
     .catch((err) => {
       console.error(err)
     })
+    loaded.value = true
   }
   redirectIfLoggedIn()
 
@@ -81,7 +82,8 @@
 </script>
 
 <template>
-  <form @submit.prevent="requestPasswordReset">
+  <Transition>
+  <form v-if="loaded" @submit.prevent="requestPasswordReset">
     <fieldset>
       <legend>Forgotten Password</legend>
       
@@ -106,6 +108,7 @@
       </nav>
     </fieldset>
   </form>
+  </Transition>
 </template>
 
 <style scoped>
@@ -203,5 +206,15 @@
 
   a.forgot-password-link:hover {
     background-color: rgba(220, 20, 60, 0.1);
+  }
+    
+  .v-enter-active,
+  .v-leave-active {
+    transition: opacity 0.5s ease;
+  }
+
+  .v-enter-from,
+  .v-leave-to {
+    opacity: 0;
   }
 </style>

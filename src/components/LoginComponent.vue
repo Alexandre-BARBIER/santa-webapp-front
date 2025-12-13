@@ -40,13 +40,14 @@
     .catch((err) => {
       console.error(err)
     })
+    loaded.value = true
   }
   redirectIfLoggedIn()
 
   const usernameInput = ref("")
   const passwordInput = ref("")
   const remember_me = ref("false") // Set default remember
-
+  const loaded = ref(false)
 
   async function requestLogin () {
     await fetch(apiLoginUrl, {
@@ -88,7 +89,8 @@
 </script>
 
 <template>
-  <form @submit.prevent="requestLogin">
+  <Transition>
+  <form v-if="loaded" @submit.prevent="requestLogin">
     <fieldset>
       <legend>Login</legend>
       <span style="color: crimson; font-style: italic; margin-bottom: 0.8em;" class="wrong" v-show="wrongCredentials">Invalid credentials</span>
@@ -112,6 +114,7 @@
       </nav>
     </fieldset>
   </form>
+  </Transition>
 </template>
 
 <style scoped>
@@ -232,5 +235,15 @@
     #remember_me:checked + .slider:before {
       transform: translateX(19px);
     }
+  }
+  
+  .v-enter-active,
+  .v-leave-active {
+    transition: opacity 0.5s ease;
+  }
+
+  .v-enter-from,
+  .v-leave-to {
+    opacity: 0;
   }
 </style>

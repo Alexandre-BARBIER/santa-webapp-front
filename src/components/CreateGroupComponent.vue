@@ -6,6 +6,7 @@
   const { ip, protocol } = config.api;
   const api_JoinGroup_Url = `${protocol}://${ip}/api/group/create`;
 
+  const loaded = ref(false)
   const group_name = ref("")
   const visibility = ref("public") // Set default visibility
   const join_code = ref("");
@@ -38,10 +39,13 @@
 
     return response;
   }
+
+  loaded.value = true
 </script>
 
 <template>
-  <form @submit.prevent="CreateGroup">
+  <Transition>
+  <form v-if="loaded" @submit.prevent="CreateGroup">
     <fieldset>
       <legend>Create a Group</legend>
       <div class="form-wrapper grid-wrapper">
@@ -64,6 +68,7 @@
       <div v-if="resultMessage" :style="{ color: resultColor }">{{ resultMessage }}</div>
     </fieldset>
   </form>
+  </Transition>
 </template>
 
 <style>
@@ -163,6 +168,16 @@
 
   #visibility_switch:checked + .slider:before {
     transform: translateX(19px);
+  }
+  
+  .v-enter-active,
+  .v-leave-active {
+    transition: opacity 0.5s ease;
+  }
+
+  .v-enter-from,
+  .v-leave-to {
+    opacity: 0;
   }
 }
 </style>
