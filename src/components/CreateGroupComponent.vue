@@ -1,10 +1,11 @@
 <script setup>
-  import { ref } from 'vue'
+  import { ref, onMounted } from 'vue'
   import config from '@config/config.json';
 
   // Destructure the API IP and port from the configuration object
   const { ip, protocol } = config.api;
   const api_JoinGroup_Url = `${protocol}://${ip}/api/group/create`;
+  const apiAllGroupsUrl = `${protocol}://${ip}/api/group/all`;
 
   const loaded = ref(false)
   const group_name = ref("")
@@ -12,6 +13,36 @@
   const join_code = ref("");
   const resultMessage = ref("");
   const resultColor = ref("");
+
+  // Fetch all available groups when component is mounted
+  onMounted(async () => {
+    await fetchGroups();
+  });
+
+  async function fetchGroups() {
+    loading.value = true;
+    try {
+      const response = await fetch(apiAllGroupsUrl, {
+        withCredentials: true,
+        credentials: 'include',
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        }
+      });
+
+      if (response.ok) {
+        groups.value = await response.json();
+      } else {
+        console.error('Failed to fetch groups');
+      }
+    } catch (error) {
+      console.error('Error fetching groups:', error);
+    } finally {
+      loading.value = false;
+    }
+    loaded.value = true
+  }
 
   const emit = defineEmits(['groupCreated']); // Define the custom event
 
@@ -39,8 +70,6 @@
 
     return response;
   }
-
-  loaded.value = true
 </script>
 
 <template>
