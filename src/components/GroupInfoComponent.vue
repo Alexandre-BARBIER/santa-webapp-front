@@ -14,7 +14,6 @@
   const groupName = ref("")
   const visibility = ref("")
   const join_code = ref("")
-  const members = ref()
   const update_code = ref(false)
   const updated_join_code = ref("")
 
@@ -38,7 +37,6 @@
     .then((response) => {
       response.json().then((data) => {
         groupName.value = data.name;
-        members.value = data.members;
         visibility.value = data.visibility;
         join_code.value = data.join_code;
         loaded.value = true;
@@ -98,10 +96,6 @@
         <span>Visibility</span> <span>{{visibility}}</span>
         <span>Join Code</span> <span>{{join_code}}</span>
       </div>
-      <span>Members : </span>
-      <li v-for="member in members">
-        {{ member.login }}
-      </li>
       <button @click="toggleDisplay" class="action">Modify</button>
 
     </fieldset>
