@@ -76,6 +76,16 @@ const router = createRouter({
       component: SignUpView
     },
     {
+      path: '/invite/:token',
+      name: 'Invitation',
+      meta: {
+        requiresAuth: false,
+        displayOnUserBanner: false,
+        displayOnBanner: false
+      },
+      component: SignUpView
+    },
+    {
       path: '/profile/:id',
       name: 'profile',
       meta: {

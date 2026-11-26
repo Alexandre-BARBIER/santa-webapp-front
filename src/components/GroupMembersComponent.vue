@@ -13,6 +13,9 @@
   const apiCandidatesUrl = `${protocol}://${ip}/api/group/candidates/${route.params.id}`;    //GET ?q=
   const apiAddMemberUrl = `${protocol}://${ip}/api/group/member/add`;                        //POST   : groupID, userID
   const apiRemoveMemberUrl = `${protocol}://${ip}/api/group/member/remove`;                  //DELETE : groupID, userID
+  const apiInviteUrl = `${protocol}://${ip}/api/group/invite`;                               //POST   : groupID, email
+  const apiInvitationsUrl = `${protocol}://${ip}/api/group/invitations/${route.params.id}`;  //GET
+  const apiCancelInvitationUrl = `${protocol}://${ip}/api/group/invitation/cancel`;          //DELETE : invitationID
 
   const SEARCH_DELAY_MS = 250
 
@@ -23,6 +26,8 @@
   const dropdownOpen = ref(false)
   const resultMessage = ref('')
   const resultColor = ref('')
+  const inviteEmail = ref('')
+  const invitations = ref([])
   const loaded = ref(false)
 
   let searchTimer = null
@@ -152,7 +157,88 @@
     });
   }
 
-  onMounted(requestMembers);
+  async function requestInvitations() {
+    await fetch(apiInvitationsUrl, {
+      credentials: 'include',
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.status === 'OK') {
+        invitations.value = data.invitations;
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  }
+
+  async function inviteMember() {
+    const email = inviteEmail.value.trim();
+    if (!email) {
+      resultMessage.value = 'Please enter an email';
+      resultColor.value = 'red';
+      return;
+    }
+
+    await fetch(apiInviteUrl, {
+      credentials: 'include',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        groupID: route.params.id,
+        email: email
+      })
+    })
+    .then((response) => response.json())
+    .then(async (data) => {
+      resultMessage.value = data.status;
+      resultColor.value = (data.status === 'Invitation sent' || data.status === 'Member added') ? 'green' : 'red';
+      if (data.status === 'Invitation sent') {
+        inviteEmail.value = '';
+        await requestInvitations();
+      } else if (data.status === 'Member added') {
+        inviteEmail.value = '';
+        await requestMembers();
+        emit('changed');
+      }
+    });
+  }
+
+  async function cancelInvitation(invitation) {
+    if (!window.confirm(`Cancel the invitation sent to ${invitation.email}?`)) {
+      return;
+    }
+
+    await fetch(apiCancelInvitationUrl, {
+      credentials: 'include',
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        invitationID: invitation.id
+      })
+    })
+    .then((response) => response.json())
+    .then(async (data) => {
+      resultMessage.value = data.status;
+      resultColor.value = data.status === 'Invitation cancelled' ? 'green' : 'red';
+      if (data.status === 'Invitation cancelled') {
+        await requestInvitations();
+      }
+    });
+  }
+
+  onMounted(async () => {
+    await requestMembers();
+    await requestInvitations();
+  });
   onBeforeUnmount(() => clearTimeout(searchTimer));
 </script>
 
@@ -185,6 +271,10 @@
         </div>
         <button type="button" @click="addMember" class="action">Add Member</button>
 
+        <h3>Invite by email</h3>
+        <input type="email" v-model="inviteEmail" autocomplete="off" placeholder="Email of the person to invite" aria-label="Email of the person to invite">
+        <button type="button" @click="inviteMember" class="action">Send Invitation</button>
+
         <div v-if="members.length > 0" class="table-wrapper">
           <h3>Current Members</h3>
           <table class="styled-table full-width">
@@ -206,6 +296,28 @@
         </div>
         <div v-else>
           <p>This group has no members yet.</p>
+        </div>
+
+        <div v-if="invitations.length > 0" class="table-wrapper">
+          <h3>Pending Invitations</h3>
+          <table class="styled-table full-width">
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Expires</th>
+                <th>Cancel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="invitation in invitations" :key="invitation.id">
+                <td>{{ invitation.email }}</td>
+                <td>{{ invitation.expires }}</td>
+                <td>
+                  <button type="button" class="delete" @click="cancelInvitation(invitation)">Cancel</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </fieldset>
     </form>

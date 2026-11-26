@@ -1,6 +1,6 @@
 <script setup>
   import { ref, computed } from 'vue'
-  import { useRouter } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
   import config from '@config/config.json';
   import zxcvbn from 'zxcvbn';
 
@@ -9,8 +9,12 @@
   const minLengthPassword = config.minLengthPassword;
   const apiSignupUrl = `${protocol}://${ip}/api/signup`;
   const apiGetMyId = `${protocol}://${ip}/api/myprofile`
+  const apiValidateInvitationUrl = `${protocol}://${ip}/api/invitation/validate`;
 
   const router = useRouter()
+  const route = useRoute()
+  const inviteToken = ref(route.params.token ?? null)
+  const inviteGroupName = ref('')
 
   async function redirectIfLoggedIn () {
     await fetch(apiGetMyId, {
@@ -40,6 +44,31 @@
     loaded.value = true
   }
   redirectIfLoggedIn()
+
+  async function validateInvitation () {
+    try {
+      const response = await fetch(`${apiValidateInvitationUrl}?token=${encodeURIComponent(inviteToken.value)}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        },
+      })
+      const data = await response.json()
+      if (data.valid) {
+        emailInput.value = data.email
+        inviteGroupName.value = data.group_name
+        return
+      }
+    } catch (err) {
+      console.error(err)
+    }
+    resultMessage.value = 'This invitation is invalid or has expired'
+    resultColor.value = 'red'
+    inviteToken.value = null
+  }
+  if (inviteToken.value) {
+    validateInvitation()
+  }
 
   const loaded = ref(false)
 
@@ -116,7 +145,8 @@
         birthdate: birthdateInput.value,
         password: passwordInput.value,
         remember_me: remember_me.value,
-        email_address: emailInput.value // pass the URL to the backend
+        email_address: emailInput.value, // pass the URL to the backend
+        invite_token: inviteToken.value
       })
     })
 
@@ -146,6 +176,14 @@
               color = 'red';
               message = 'Incorrect email format';
               break;
+          case 'Invalid or expired invitation':
+              color = 'red';
+              message = 'Invalid or expired invitation';
+              break;
+          case 'Email does not match the invitation':
+              color = 'red';
+              message = 'Email does not match the invitation';
+              break;
           default:
               color = 'black';
               message = 'Unexpected response.';
@@ -165,13 +203,14 @@
     <fieldset>
       <legend>Sign-up!</legend>
       <div v-if="resultMessage" :style="{ color: resultColor }">{{ resultMessage }}</div>
+      <p v-if="inviteGroupName">You have been invited to join the group <b>{{ inviteGroupName }}</b>. Create your account to join it.</p>
       <div class="form-wrapper grid-wrapper">
 
         <label for="loginInput">Login*</label>
         <input required :class="{ wrong: !loginInput }" autocomplete="off" placeholder="Enter a super login" id="loginInput" name="login" type="text" v-model="loginInput">
         
         <label for="emailInput">Email*</label>
-        <input required :class="{ wrong: !emailInput }" autocomplete="off" placeholder="Enter your email" type="email" name="email" id="emailInput" v-model="emailInput">
+        <input required :readonly="!!inviteGroupName" :class="{ wrong: !emailInput }" autocomplete="off" placeholder="Enter your email" type="email" name="email" id="emailInput" v-model="emailInput">
         
         <label for="passwordInput">Password*</label>
         <input required :class="{ wrong: passwordInput.length <= (minLengthPassword-1) }" :minlength="minLengthPassword" autocomplete="new-password" placeholder="Enter your password" type="password" name="password" id="passwordInput" v-model="passwordInput" @input="evaluatePasswordStrength">
