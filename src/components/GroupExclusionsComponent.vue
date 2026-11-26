@@ -216,6 +216,24 @@
     outline: solid rgba(128, 128, 128, 0.5) var(--input-border-outline);
     border-radius: 2em;
   }
+
+  /* Mobile: the 2-column grid (label | select) overflows because a select's width is fixed.
+     Stack label above select in a single shrinkable column instead. */
+  @media (max-width: 480px) {
+    .grid-wrapper {
+      grid-template-areas: none;
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .grid-wrapper > label {
+      justify-self: start;
+    }
+
+    select {
+      width: 100%;
+      max-width: var(--input-width);
+    }
+  }
   
   .table-wrapper {
     align-self: stretch;
