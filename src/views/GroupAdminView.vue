@@ -1,7 +1,12 @@
 <script setup>
+import { ref } from 'vue'
 import GroupInfoComponent from '../components/GroupInfoComponent.vue'
 import GroupSecretComponent from '../components/GroupSecretComponent.vue'
+import GroupMembersComponent from '../components/GroupMembersComponent.vue'
 import GroupExclusionsComponent from '../components/GroupExclusionsComponent.vue'
+
+// Exclusions pick their users among the members: reload them when the members change
+const exclusionsKey = ref(0)
 </script>
 
 <template>
@@ -9,7 +14,8 @@ import GroupExclusionsComponent from '../components/GroupExclusionsComponent.vue
   <GroupInfoComponent id="GroupInfoComponent"/>
   <GroupSecretComponent id="GroupSecretComponent"/>
 </div>
-<GroupExclusionsComponent id="GroupExclusionsComponent"/>
+<GroupMembersComponent id="GroupMembersComponent" @changed="exclusionsKey++"/>
+<GroupExclusionsComponent id="GroupExclusionsComponent" :key="exclusionsKey"/>
 </template>
 
 <style scoped>
@@ -26,6 +32,7 @@ import GroupExclusionsComponent from '../components/GroupExclusionsComponent.vue
     justify-self: start;
   }
   
+  #GroupMembersComponent,
   #GroupExclusionsComponent {
     width: 100%;
     max-width: 600px;

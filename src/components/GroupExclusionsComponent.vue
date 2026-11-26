@@ -172,7 +172,7 @@
                 <td>{{ exclusion.userName }}</td>
                 <td>{{ exclusion.excludedUserName }}</td>
                 <td>
-                  <button class="delete" @click="deleteExclusion(exclusion.id)">Remove</button>
+                  <button type="button" class="delete" @click="deleteExclusion(exclusion.id)">Remove</button>
                 </td>
               </tr>
             </tbody>
