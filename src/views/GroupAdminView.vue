@@ -14,8 +14,10 @@ const exclusionsKey = ref(0)
   <GroupInfoComponent id="GroupInfoComponent"/>
   <GroupSecretComponent id="GroupSecretComponent"/>
 </div>
-<GroupMembersComponent id="GroupMembersComponent" @changed="exclusionsKey++"/>
-<GroupExclusionsComponent id="GroupExclusionsComponent" :key="exclusionsKey"/>
+<div class="panels">
+  <GroupMembersComponent id="GroupMembersComponent" @changed="exclusionsKey++"/>
+  <GroupExclusionsComponent id="GroupExclusionsComponent" :key="exclusionsKey"/>
+</div>
 </template>
 
 <style scoped>
@@ -32,10 +34,17 @@ const exclusionsKey = ref(0)
     justify-self: start;
   }
   
+  /* Side by side when there is room, stacked (members first) otherwise */
+  .panels {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
   #GroupMembersComponent,
   #GroupExclusionsComponent {
-    width: 100%;
+    flex: 1 1 420px;
     max-width: 600px;
-    margin: auto;
   }
 </style>

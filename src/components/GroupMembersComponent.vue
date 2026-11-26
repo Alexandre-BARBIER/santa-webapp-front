@@ -185,9 +185,9 @@
         </div>
         <button type="button" @click="addMember" class="action">Add Member</button>
 
-        <div v-if="members.length > 0">
+        <div v-if="members.length > 0" class="table-wrapper">
           <h3>Current Members</h3>
-          <table class="styled-table">
+          <table class="styled-table full-width">
             <thead>
               <tr>
                 <th>Member</th>
@@ -252,6 +252,22 @@
   .candidates li.no-result {
     cursor: default;
     opacity: 0.7;
+  }
+
+  .table-wrapper {
+    align-self: stretch;
+    overflow-x: auto;
+  }
+
+  .table-wrapper h3 {
+    text-align: center;
+  }
+
+  /* .styled-table is display:block, so the real table inside only shrinks to its content */
+  .styled-table.full-width {
+    display: table;
+    width: 100%;
+    min-width: 0;
   }
 
   .v-enter-active,

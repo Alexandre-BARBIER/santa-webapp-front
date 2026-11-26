@@ -157,9 +157,9 @@
         
         <button type="button" @click="addExclusion" class="action">Add Exclusion</button>
         
-        <div v-if="exclusions.length > 0">
+        <div v-if="exclusions.length > 0" class="table-wrapper">
           <h3>Current Exclusions</h3>
-          <table class="styled-table">
+          <table class="styled-table full-width">
             <thead>
               <tr>
                 <th>User</th>
@@ -217,6 +217,22 @@
     border-radius: 2em;
   }
   
+  .table-wrapper {
+    align-self: stretch;
+    overflow-x: auto;
+  }
+
+  .table-wrapper h3 {
+    text-align: center;
+  }
+
+  /* .styled-table is display:block, so the real table inside only shrinks to its content */
+  .styled-table.full-width {
+    display: table;
+    width: 100%;
+    min-width: 0;
+  }
+
   .v-enter-active,
   .v-leave-active {
     transition: opacity 0.5s ease;
