@@ -16,7 +16,7 @@ defineProps({
 <style scoped>
 h1 {
   font-weight: 500;
-  font-size: 2.6rem;
+  font-size: clamp(1.8rem, 6vw, 2.6rem);
   position: relative;
   top: -10px;
 }

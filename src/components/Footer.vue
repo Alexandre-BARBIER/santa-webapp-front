@@ -31,7 +31,7 @@ nav.footer {
 a.banner {
   display: flex;
   align-items: center;
-  height: calc(var(--footer-height)*0.7);
+  height: max(44px, calc(var(--footer-height)*0.7));
   border-radius: 0;
   padding-inline: 1em;
 }

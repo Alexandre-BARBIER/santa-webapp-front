@@ -60,10 +60,6 @@
     100% { transform: translateX(30px) rotate(10deg); }
   }
 
-.container {
-  gap: -20em;
-}
-
 .presents {
   display: flex;
   justify-content: center;
@@ -90,9 +86,11 @@
   overflow: hidden;
 }
 
+/* Real layout size (the SVG has a viewBox), instead of scale: 0.5 which kept a 180px box */
 .logo-left,
 .logo-right {
-  scale: 0.5;
+  width: 90px;
+  height: 96px;
   flex-shrink: 0;
 }
 

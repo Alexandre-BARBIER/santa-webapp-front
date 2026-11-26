@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, computed } from 'vue'
+import { ref, watch, computed, onMounted, onUnmounted } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import config from '@config/config.json'
 import LogoutIcon from './icons/LogoutIcon.vue'
@@ -11,22 +11,40 @@ const userId = ref()
 const bannerRoutes = ref([])
 const isBurgerMenuOpen = ref(false)
 
+// Keep in sync with the (max-width: 640px) media queries in the <style> below
+const mobileQuery = window.matchMedia('(max-width: 640px)')
+const isMobile = ref(mobileQuery.matches)
+
+function onMobileQueryChange(event) {
+  isMobile.value = event.matches
+  if (!event.matches) {
+    isBurgerMenuOpen.value = false
+  }
+}
+
+onMounted(() => mobileQuery.addEventListener('change', onMobileQueryChange))
+onUnmounted(() => mobileQuery.removeEventListener('change', onMobileQueryChange))
+
+// On mobile the bar keeps the first links; the burger menu only holds the overflow (no duplicates)
+const MOBILE_BAR_LINKS = 3
+
 const visibleRoutes = computed(() => {
-  if (window.innerWidth <= 640) {
-    return bannerRoutes.value.slice(0, 3)
+  if (isMobile.value) {
+    return bannerRoutes.value.slice(0, MOBILE_BAR_LINKS)
   }
   return bannerRoutes.value
 })
 
 const burgerMenuRoutes = computed(() => {
-  if (window.innerWidth <= 640) {
-    return bannerRoutes.value.slice(1)
+  if (isMobile.value) {
+    return bannerRoutes.value.slice(MOBILE_BAR_LINKS)
   }
   return []
 })
 
+// Logout lives in the burger menu on mobile, so a logged-in user always needs it
 const showBurgerMenu = computed(() => {
-  return window.innerWidth <= 640 && burgerMenuRoutes.value.length > 0
+  return isMobile.value && (burgerMenuRoutes.value.length > 0 || isLoggedIn.value)
 })
 
 const { ip, protocol } = config.api
@@ -120,10 +138,20 @@ function closeBurgerMenu() {
     <div v-if="isBurgerMenuOpen && showBurgerMenu" class="overlay" @click="closeBurgerMenu"></div>
   </transition>
   
-  <nav class="header">
+  <nav class="header" :class="{ 'has-burger': showBurgerMenu }">
     <RouterLink class="banner" v-for="(route) in visibleRoutes" :to="route.path" @click="closeBurgerMenu">{{ route.name }}</RouterLink>
     
-    <div v-if="showBurgerMenu" class="burger-icon" @click="toggleBurgerMenu">
+    <div
+      v-if="showBurgerMenu"
+      class="burger-icon"
+      role="button"
+      tabindex="0"
+      aria-label="Menu"
+      :aria-expanded="isBurgerMenuOpen"
+      @click="toggleBurgerMenu"
+      @keydown.enter="toggleBurgerMenu"
+      @keydown.space.prevent="toggleBurgerMenu"
+    >
       <div class="burger-line"></div>
       <div class="burger-line"></div>
       <div class="burger-line"></div>
@@ -213,7 +241,8 @@ a.banner {
   flex-direction: column;
   gap: 4px;
   cursor: pointer;
-  padding: 8px;
+  /* 45x45px hit area (25px lines + 2*10px padding, 17px lines/gaps + 2*14px padding) */
+  padding: 14px 10px;
   z-index: 1003;
 }
 
@@ -300,10 +329,15 @@ a.banner {
     justify-content: center;
   }
 
+  /* Reserve room for the burger icon so it never overlaps the links */
+  .header.has-burger {
+    padding-left: 3.5rem;
+  }
+
   .header > a {
     font-size: 0.9rem;
   }
-  
+
   .logout > span {
     opacity: 0;
   }
@@ -311,26 +345,13 @@ a.banner {
   .burger-icon {
     display: flex;
     position: absolute;
-    left: 1em
+    left: 0.3em;
   }
 }
 
-@media (max-width: 640px) {
-  .right {
-    right: 0.8em;
-  }
-
-  .header {
-    /* gap: 1vw; */
-    justify-content: center;
-  }
-
-  .header > a {
-    font-size: 0.9rem;
-  }
-  
-  .logout > span {
-    opacity: 0;
+@media (max-width: 480px) {
+  a.banner {
+    padding-inline: 0.5em;
   }
 }
 </style>
