@@ -80,6 +80,11 @@
       })
     });
 
+    if (response.status === 429) {
+      resultMessage.value = 'Too many attempts, please try again later'
+      resultColor.value = 'red'
+      return response
+    }
     response.text().then((data) => {
         let color = '';
         let message = ''

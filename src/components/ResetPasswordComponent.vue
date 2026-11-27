@@ -72,7 +72,7 @@
       return
     }
 
-    if (newPasswordInput.value.length < (minLengthPassword -1)) {
+    if (newPasswordInput.value.length < minLengthPassword) {
       errorMessage.value = `Password must be at least ${minLengthPassword} characters long`
       return
     }

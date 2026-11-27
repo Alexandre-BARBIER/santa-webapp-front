@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/santa_webapp_logo.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santa Zapy</title>
+    <!--<style>
+      body {
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+        background-color: #000; /* Set background color to black */
+      }
+  
+      .snowflake {
+        z-index: -1;
+        position: absolute;
+        background: #fff;
+        border-radius: 50%;
+        pointer-events: none;
+        box-shadow: 0 0 10px #fff; /* Increase shadow size for visibility */
+        animation: snowfall linear infinite;
+        width: 5px; /* Increase snowflake size */
+        height: 5px; /* Increase snowflake size */
+      }
+  
+      @keyframes snowfall {
+        0% {
+          transform: translateY(-5%);
+        }
+        100% {
+          transform: translateY(99vh);
+        }
+      }
+    </style> -->
+    <script type="module" crossorigin src="/assets/index-CeBa4b-W.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DHkE1Xw9.css">
+  </head>
+  <body>
+    <!-- <div class="header">
+    <script>
+      // Function to create a snowflake
+      function createSnowflake() {
+          const snowflake = document.createElement('div');
+          snowflake.classList.add('snowflake');
+          snowflake.style.left = `${Math.random() * 100}vw`; // Random horizontal position
+          snowflake.style.top = `${document.documentElement.scrollTop}px`; // Start slightly above the viewport
+          snowflake.style.animationDuration = `${Math.random() * 5 + 3}s`; // Random animation duration
+          document.body.appendChild(snowflake);
+  
+          // Remove the snowflake after it falls out of view
+          snowflake.addEventListener('animationiteration', () => {
+              snowflake.remove();
+              createSnowflake(); // Recreate the snowflake to keep snowing
+          });
+      }
+  
+      // Create initial snowflakes
+      for (let i = 0; i < 100; i++) {
+        createSnowflake();
+      }
+    </script>
+    </div> -->
+    <div id="app"></div>
+  </body>
+</html>

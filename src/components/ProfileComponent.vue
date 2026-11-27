@@ -190,6 +190,10 @@
               color = 'dodgerblue';
               message = 'Incorrect format';
               break;
+          case 'Invalid login':
+              color = 'red';
+              message = "Login must not contain '@'";
+              break;
           default:
               color = 'black';
               message = 'Unexpected response.';
@@ -214,6 +218,11 @@
         password: passwordInput.value
       })
     })
+    if (response.status === 429) {
+      resultMessage.value = 'Too many attempts, please try again later'
+      resultColor.value = 'red'
+      return
+    }
     response.text().then((data) => {
       let color = '';
       let message = ''
@@ -253,6 +262,11 @@
         new_password: newPasswordInput.value
       })
     })
+    if (response.status === 429) {
+      resultMessage.value = 'Too many attempts, please try again later'
+      resultColor.value = 'red'
+      return
+    }
     response.text().then((data) => {
       let color = '';
       let message = ''
@@ -269,6 +283,10 @@
           case 'No change made':
               color = 'red';
               message = 'No change made';
+              break;
+          case 'Invalid password':
+              color = 'red';
+              message = `Password must be between ${minLengthPassword} and 128 characters`;
               break;
           default:
               color = 'black';
