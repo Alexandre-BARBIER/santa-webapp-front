@@ -35,8 +35,8 @@
     .then(async (json) => {
       if (json) {
         await router.push(`/profile/${json?.user_id}`)
+        router.go(0)
       }
-      router.go(0)
     })
     .catch((err) => {
       console.error(err)
