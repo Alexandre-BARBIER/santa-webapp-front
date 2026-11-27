@@ -114,6 +114,10 @@
                 color = 'orange';
                 message = 'Group does not exist.';
                 break;
+            case 'Secret Santa started':
+                color = 'red';
+                message = 'A Secret Santa has already started in this group, you cannot join it.';
+                break;
             default:
                 color = 'black';
                 message = 'Unexpected response.';
