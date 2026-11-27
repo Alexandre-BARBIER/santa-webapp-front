@@ -92,7 +92,7 @@ async function logoutUser () {
     await fetch(apiLogoutUser, {
       withCredentials: true,
       credentials: 'include',
-      method: 'GET'
+      method: 'POST'
     })
     .then((response) => {      
       if (response.status >= 400) {
@@ -116,7 +116,6 @@ async function logoutUser () {
     .then(async (stringResponse) => {
       isLoggedIn.value = false
       router.push('/')
-      console.log(stringResponse)
     })
     .catch((err) => {
       // console.error(err)

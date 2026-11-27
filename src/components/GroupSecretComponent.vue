@@ -68,7 +68,6 @@
       response.json().then((data) => {
         if (data.secret_santa === 'true') {
           state.value = 'active'
-          console.log(state.value)
           sdateDayInput.value = data.date.split('/')[0];
           sdateMonthInput.value = data.date.split('/')[1]
           sdateYearInput.value = data.date.split('/')[2]

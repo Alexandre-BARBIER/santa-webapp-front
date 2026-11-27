@@ -10,6 +10,8 @@ import GroupGiftView from '@/views/GroupGiftView.vue'
 import GroupAdminView from '@/views/GroupAdminView.vue'
 import ForgotPasswordView from '@/views/ForgotPasswordView.vue'
 import ResetPasswordView from '@/views/ResetPasswordView.vue'
+import VerifyEmailView from '@/views/VerifyEmailView.vue'
+import config from '@config/config.json'
 
 
 const router = createRouter({
@@ -145,7 +147,30 @@ const router = createRouter({
       },
       component: MyProfileView
     },
+    {
+      path: '/verify-email/:token',
+      name: 'Verify Email',
+      meta: {
+        requiresAuth: false,
+        displayOnUserBanner: false,
+        displayOnBanner: false
+      },
+      component: VerifyEmailView
+    },
   ]
+})
+
+const apiGetMyId = `${config.api.protocol}://${config.api.ip}/api/myprofile`
+
+router.beforeEach(async (to) => {
+  if (!to.meta.requiresAuth) return true
+  try {
+    const response = await fetch(apiGetMyId, { credentials: 'include', method: 'GET', headers: { 'Accept': 'application/json' } })
+    if (response.ok) return true
+  } catch (err) {
+    console.error(err)
+  }
+  return { path: '/login' }
 })
 
 export default router

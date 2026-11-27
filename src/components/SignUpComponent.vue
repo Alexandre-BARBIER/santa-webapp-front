@@ -163,8 +163,15 @@
           case 'Inscription réussie':
               color = 'green';
               message = 'Inscription réussie';
-              console.log('Signed in and Logged in')
               redirectIfLoggedIn()
+              break;
+          case 'Verification email sent':
+              color = 'green';
+              message = 'Account created. Check your inbox to confirm your email address.';
+              break;
+          case 'Failed to send the verification email':
+              color = 'red';
+              message = 'Could not send the verification email, please try again later';
               break;
           case 'Login already used':
               color = 'red';
