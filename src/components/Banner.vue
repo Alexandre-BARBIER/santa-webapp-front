@@ -51,12 +51,14 @@ const { ip, protocol } = config.api
 const apiGetMyId = `${protocol}://${ip}/api/myprofile`
 const apiLogoutUser = `${protocol}://${ip}/api/logout`
 
-watch(isLoggedIn, (fresh, old) => {
+function refreshBannerRoutes (loggedIn) {
   bannerRoutes.value = router.getRoutes().filter(route =>
     (route.meta?.displayOnBanner) &&
-    (route.meta.requiresAuth === fresh || route.meta?.displayOnUserBanner === fresh)
+    (route.meta.requiresAuth === loggedIn || route.meta?.displayOnUserBanner === loggedIn)
   )
-})
+}
+
+watch(isLoggedIn, (fresh) => refreshBannerRoutes(fresh))
 
 
 async function getMyProfile () {
@@ -72,6 +74,7 @@ async function getMyProfile () {
   })
   .then((response) => {
     isLoggedIn.value = response.status < 400
+    refreshBannerRoutes(isLoggedIn.value)
   })
   .then((json) => {
     userId.value = json?.user_id
