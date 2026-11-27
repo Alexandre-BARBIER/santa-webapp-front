@@ -12,6 +12,7 @@
   const apiLoginUrl  = `${protocol}://${ip}/api/login`;
   const apiGetMyId   = `${protocol}://${ip}/api/myprofile`
 
+  const tooManyRequests = ref(false)
   const wrongCredentials = ref(false)
 
   // Redirects to profile page if logged in
@@ -66,6 +67,12 @@
       })
     })
     .then(async (response) => {
+      if (response.status === 429) {
+        tooManyRequests.value = true
+        wrongCredentials.value = false
+        return null
+      }
+      tooManyRequests.value = false
       const reader = response.body.getReader()
       return reader.read().then(({ done, value }) => {
         if (done) {
@@ -76,6 +83,7 @@
       })
     })
     .then((stringResponse) => {
+      if (stringResponse === null) return
       console.log(stringResponse)
       if (stringResponse === 'Vous êtes connecté!') {
         console.log('Logged in')
@@ -94,6 +102,7 @@
     <fieldset>
       <legend>Login</legend>
       <span style="color: crimson; font-style: italic; margin-bottom: 0.8em;" class="wrong" v-show="wrongCredentials">Invalid credentials</span>
+      <span style="color: crimson; font-style: italic; margin-bottom: 0.8em;" class="wrong" v-show="tooManyRequests">Too many attempts, please try again later</span>
       <div class="form-wrapper grid-wrapper">
           <label for="usernameInput">Username</label>
           <input :class="{ wrong: wrongCredentials }" required autocomplete="off" placeholder="Enter your username" id="usernameInput" name="username" type="text" v-model="usernameInput">

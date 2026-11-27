@@ -150,6 +150,12 @@
       })
     })
 
+    if (response.status === 429) {
+      resultMessage.value = 'Too many attempts, please try again later'
+      resultColor.value = 'red'
+      return response
+    }
+
     response.text().then((data) => {
       let color = '';
       let message = ''
@@ -183,6 +189,14 @@
           case 'Email does not match the invitation':
               color = 'red';
               message = 'Email does not match the invitation';
+              break;
+          case 'Invalid login':
+              color = 'red';
+              message = "Login must not contain '@'";
+              break;
+          case 'Invalid password':
+              color = 'red';
+              message = `Password must be between ${minLengthPassword} and 128 characters`;
               break;
           default:
               color = 'black';
