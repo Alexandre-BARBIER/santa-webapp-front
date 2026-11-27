@@ -52,7 +52,7 @@
     })
     .then((response) => {
       response.json().then((data) => {
-        secretgifts.value = data.gifts;
+        secretgifts.value = data.gifts || [];
         receiver.value = data.receiverLogin;
         date.value = data.date;
         loaded.value = true;

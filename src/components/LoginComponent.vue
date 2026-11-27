@@ -14,6 +14,7 @@
 
   const tooManyRequests = ref(false)
   const wrongCredentials = ref(false)
+  const emailNotVerified = ref(false)
 
   // Redirects to profile page if logged in
   async function redirectIfLoggedIn () {
@@ -84,11 +85,14 @@
     })
     .then((stringResponse) => {
       if (stringResponse === null) return
-      console.log(stringResponse)
       if (stringResponse === 'Vous êtes connecté!') {
-        console.log('Logged in')
+        emailNotVerified.value = false
         redirectIfLoggedIn()
+      } else if (stringResponse === 'Email not verified') {
+        emailNotVerified.value = true
+        wrongCredentials.value = false
       } else {
+        emailNotVerified.value = false
         wrongCredentials.value = true
       }
     })
@@ -102,6 +106,7 @@
     <fieldset>
       <legend>Login</legend>
       <span style="color: crimson; font-style: italic; margin-bottom: 0.8em;" class="wrong" v-show="wrongCredentials">Invalid credentials</span>
+      <span style="color: crimson; font-style: italic; margin-bottom: 0.8em;" class="wrong" v-show="emailNotVerified">Please confirm your email address first (check your inbox)</span>
       <span style="color: crimson; font-style: italic; margin-bottom: 0.8em;" class="wrong" v-show="tooManyRequests">Too many attempts, please try again later</span>
       <div class="form-wrapper grid-wrapper">
           <label for="usernameInput">Username</label>

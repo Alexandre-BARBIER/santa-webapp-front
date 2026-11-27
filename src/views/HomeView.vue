@@ -1,7 +1,7 @@
 <template>
   <div class="welcome-section">
     <IconNPELogo class="logo-left" />
-    <HelloWorld msg="Welcome on Santa Zapy" />
+    <div class="greetings"><h1 class="red">Welcome on Santa Zapy</h1></div>
     <IconNPELogo class="logo-right" />
   </div>
   <div class="container">
@@ -17,10 +17,20 @@
 
 <script setup>
   import IconNPELogo from '@components/icons/IconNPELogo.vue'
-  import HelloWorld from '@components/HelloWorld.vue'
 </script>
 
 <style scoped>
+h1 {
+  font-weight: 500;
+  font-size: clamp(1.8rem, 6vw, 2.6rem);
+  position: relative;
+  top: -10px;
+}
+
+.greetings h1 {
+  text-align: center;
+}
+
 .container {
   display: flex;
   align-items: center;

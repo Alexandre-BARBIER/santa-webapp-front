@@ -77,7 +77,6 @@
   }
 
   function request_back_to_read () {
-    console.log(state.value)
     if (state.value === 'update') {
       requestUpdate();
     }
@@ -169,6 +168,11 @@
         email_address: email_address.value // pass the URL to the backend
       })
     })
+    if (response.status === 429) {
+      resultMessage.value = 'Too many attempts, please try again later'
+      resultColor.value = 'red'
+      return
+    }
     response.text().then((data) => {
       let color = '';
       let message = ''
@@ -176,6 +180,16 @@
           case 'Updated Profile':
               color = 'green';
               message = 'Updated Profilee';
+              toggleDisplay('readonly');
+              break;
+          case 'Verification email sent':
+              color = 'green';
+              message = 'Profile updated. Check your new inbox to confirm the email change.';
+              toggleDisplay('readonly');
+              break;
+          case 'Failed to send the verification email':
+              color = 'red';
+              message = 'Profile updated, but the verification email could not be sent';
               toggleDisplay('readonly');
               break;
           case 'Login already used':

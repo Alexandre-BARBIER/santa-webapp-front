@@ -14,6 +14,7 @@
   const giftNameInput = ref('')
   const giftDescriptionInput = ref('')
   const giftPriceInput = ref(0)
+  const addGiftMessage = ref('')
 
   const mygifts = ref([])
 
@@ -61,7 +62,7 @@ async function RequestDeleteGift(giftIdToDelete) {
 
 async function requestAddGift () {
     
-    await fetch(apiGiftAddUrl, {
+    const response = await fetch(apiGiftAddUrl, {
       withCredntials: true,
       credentials: 'include',
       method: 'POST',
@@ -76,6 +77,23 @@ async function requestAddGift () {
         price: giftPriceInput.value
       })
     })
+    const text = await response.text()
+    switch (text) {
+      case 'Gift Added':
+        addGiftMessage.value = ''
+        break
+      case 'Invalid name':
+        addGiftMessage.value = 'Name is required (100 characters max)'
+        break
+      case 'Invalid description':
+        addGiftMessage.value = 'Description is too long (200 characters max)'
+        break
+      case 'Incorrect Price':
+        addGiftMessage.value = 'Price must be a number between 0 and 1000000'
+        break
+      default:
+        addGiftMessage.value = 'Unexpected response.'
+    }
     await RequestMyGifts()
   }
 
@@ -123,16 +141,17 @@ Docs: https://vuejs.org/guide/essentials/conditional.html#v-show -->
   <form v-if="loaded" @submit.prevent="requestAddGift">
     <fieldset>
       <legend>New Gift</legend>
+      <div v-if="addGiftMessage" style="color: red;">{{ addGiftMessage }}</div>
       <div class="form-wrapper grid-wrapper">
         
         <label for="giftNameInput">Name*</label>
-        <input required placeholder="Enter gift name" id="giftNameInput" name="giftName" type="text" v-model="giftNameInput">
+        <input required maxlength="100" placeholder="Enter gift name" id="giftNameInput" name="giftName" type="text" v-model="giftNameInput">
         
         <label for="giftDescriptionInput">Description*</label>
-        <input required placeholder="Description" type="text" name="description" id="giftDescriptionInput" v-model="giftDescriptionInput">
+        <input required maxlength="200" placeholder="Description" type="text" name="description" id="giftDescriptionInput" v-model="giftDescriptionInput">
         
         <label for="giftPriceInput">Price*</label>
-        <input required placeholder="Price" type="number" name="price" id="giftPriceInput" v-model="giftPriceInput">
+        <input required min="0" max="1000000" placeholder="Price" type="number" name="price" id="giftPriceInput" v-model="giftPriceInput">
 
       </div>
       
