@@ -28,3 +28,5 @@ npm run dev
 npm run build
 ```
 
+
+Test local contre un back local : voir la section *Stack locale* du README de santa-webapp-back, puis `npm run dev:local`.

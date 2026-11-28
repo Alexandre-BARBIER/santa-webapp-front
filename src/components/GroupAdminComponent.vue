@@ -74,13 +74,13 @@ function redirect_to_admin_group(groupID) {
               </tr>
             </thead>
             <tbody>
-              <tr id="group_button" v-for="admin_group in my_admin_groups" :key="admin_group.id">
+              <tr class="clickable-row" v-for="admin_group in my_admin_groups" :key="admin_group.id">
                 <td @click="redirect_to_admin_group(admin_group.id)">{{admin_group.id}}</td>
                 <td @click="redirect_to_admin_group(admin_group.id)">{{admin_group.name}}</td>
                 <td @click="redirect_to_admin_group(admin_group.id)">{{admin_group.secret_santa}}</td>
                 <td @click="redirect_to_admin_group(admin_group.id)">{{admin_group.visibility}}</td>
                 <td @click="redirect_to_admin_group(admin_group.id)">{{admin_group.join_code}}</td>
-                <td><button class="delete-group-btn" @click="deleteGroup(admin_group.id)">Delete Group</button></td>
+                <td><button type="button" class="delete" @click="deleteGroup(admin_group.id)">Delete Group</button></td>
               </tr>
             </tbody>
           </table>
@@ -91,70 +91,3 @@ function redirect_to_admin_group(groupID) {
     </form>
   </Transition>
 </template>
-
-
-<style scoped>
-  nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  nav > a {
-    padding: 0.1em 0.5em;
-    border-radius: 0.5em;
-  }
-
-  a.forgot-password-link {
-    color: crimson;
-  }
-
-  a.forgot-password-link:hover {
-    background-color: rgba(220, 20, 60, 0.1);
-  }
-
-  .v-enter-active,
-  .v-leave-active {
-    transition: opacity 0.5s ease;
-  }
-
-  .v-enter-from,
-  .v-leave-to {
-    opacity: 0;
-  }
-
-.delete-group-btn {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #dc3545; /* Red color */
-  color: #fff; /* White text color */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.delete-group-btn:hover {
-  background-color: #c82333; /* Darker red color on hover */
-}
-#group_button {
-  cursor: pointer;
-  text-decoration: underline;
-  color: var(--color-text);
-  transition: all 0.3s ease;
-  padding: 8px;
-  border-radius: 0; 
-}
-
-#group_button:hover {
-  background-color: rgb(21, 92, 0);
-  border-radius: 15px;
-  color: white;
-  transform: scale(0.98);
-  font-size: 1.0em;
-  transition: all 0.3s ease;
-}
-
-
-</style>

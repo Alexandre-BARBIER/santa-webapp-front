@@ -8,13 +8,12 @@ import GroupAdminComponent from '../components/GroupAdminComponent.vue'
 <template>
     <JoinGroupComponent @groupJoined="handleGroupJoined" />
     <CreateGroupComponent @groupCreated="handleGroupJoined"/>
-    <br><br>
     <div class="tabview">
     <fieldset>
     <div>
       <div class="tab-container">
-        <button class="tab" :class="{ 'active-tab': selectedTab === 'mygroups' }" @click="selectedTab = 'mygroups'">My Groups</button>
-        <button class="tab" :class="{ 'active-tab': selectedTab === 'groupadmin' }" @click="selectedTab = 'groupadmin'">Group Administration</button>
+        <button type="button" class="tab" :class="{ 'active-tab': selectedTab === 'mygroups' }" @click="selectedTab = 'mygroups'">My Groups</button>
+        <button type="button" class="tab" :class="{ 'active-tab': selectedTab === 'groupadmin' }" @click="selectedTab = 'groupadmin'">Group Administration</button>
       </div>
       <div>
         <component :is="selectedTab === 'mygroups' ? 'my-groups' : 'group-admin'" :key="reloadKey"></component>
@@ -45,65 +44,35 @@ export default {
 };
 </script>
 
-<style>
-h1 {
-  text-align: center;
-  font-weight: 500;
-  font-size: 2.6rem;
-  position: relative;
-  top: -10px;
-}
-
-h3 {
-  text-align: center;
-  font-size: 1.2rem;
-}
-
-.greetings h1,
-.greetings h3 {
-  text-align: center;
-}
-
-@media (min-width: 1024px) {
-  .greetings h1,
-  .greetings h3 {
-    text-align: left;
-  }
-}
-
-
+<style scoped>
 .tab-container {
   display: flex;
-  justify-content: space-between;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  background-color: var(--color-info-bg);
+  border-radius: var(--radius-pill);
   width: 100%;
+  margin-bottom: 1rem;
 }
 
 .tab {
-  background-color: rgb(144, 20, 20);
+  flex: 1;
+  background-color: transparent;
   border: none;
-  color: lightgrey;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  transition-duration: 0.4s;
-  cursor: pointer;
-  border-radius: 12px 12px 0 0;
-  width: calc(50% - 2px); /* Subtracting 2px to account for border width */
+  color: var(--color-text-muted);
+  padding: 0.55em 1.2em;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .tab:hover {
-  color: white;
+  color: var(--color-text);
 }
 
-.active-tab {
-  background-color: rgb(210, 9, 9);
-  color: white;
-}
-
+.active-tab,
 .active-tab:hover {
-  background-color: rgb(230, 60, 60);
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
 }
 </style>

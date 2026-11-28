@@ -7,6 +7,8 @@ import Footer from '@components/Footer.vue'
 
 // Canvas setup
 const canvasRef = ref(null)
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+let rafId = 0
 
 function createSnowflake(canvas) {
   const ctx = canvas.getContext("2d")
@@ -56,28 +58,40 @@ function createSnowflake(canvas) {
   function animate() {
     drawSnowflakes()
     updateSnowflakes()
-    requestAnimationFrame(animate)
+    rafId = requestAnimationFrame(animate)
   }
 
   initSnowflakes()
-  animate()
+  if (reducedMotion) {
+    drawSnowflakes()
+  } else {
+    animate()
+  }
+  return drawSnowflakes
 }
+
+let draw = null
+let resizeHandler = null
 
 onMounted(() => {
   const canvas = canvasRef.value
   canvas.width = window.innerWidth
   canvas.height = window.innerHeight
 
-  createSnowflake(canvas)
+  draw = createSnowflake(canvas)
 
-  const resizeHandler = () => {
+  resizeHandler = () => {
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
+    // Resizing a canvas clears it
+    if (reducedMotion) draw()
   }
   window.addEventListener("resize", resizeHandler)
-  onUnmounted(() => {
-    window.removeEventListener("resize", resizeHandler)
-  })
+})
+
+onUnmounted(() => {
+  cancelAnimationFrame(rafId)
+  if (resizeHandler) window.removeEventListener("resize", resizeHandler)
 })
 </script>
 
@@ -109,40 +123,10 @@ onMounted(() => {
   pointer-events: none;
 }
 
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-  max-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-}
-
-footer {
-  margin: 0;
-}
-
-nav {
+main {
   width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: 1.5rem 1rem 3rem;
 }
 </style>

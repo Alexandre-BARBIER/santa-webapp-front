@@ -112,7 +112,7 @@
     <fieldset v-if="isValidToken">
       <legend>Reset Your Password</legend>
       
-      <p v-if="firstName" style="margin-bottom: 20px;">Welcome back, {{ firstName }}! Please enter your new password below.</p>
+      <p v-if="firstName">Welcome back, {{ firstName }}! Please enter your new password below.</p>
       
       <div v-if="successMessage" class="success-message">
         {{ successMessage }}
@@ -168,87 +168,8 @@
 </template>
 
 <style scoped>
-.success-message {
-  background-color: #d4edda;
-  border: 1px solid #c3e6cb;
-  color: #155724;
-  padding: 12px;
-  border-radius: 4px;
-  margin-bottom: 15px;
-}
-
-.error-message {
-  background-color: #f8d7da;
-  border: 1px solid #f5c6cb;
-  color: #721c24;
-  padding: 12px;
-  border-radius: 4px;
-  margin-bottom: 15px;
-}
-
-.error-text {
-  color: #d9534f;
-  font-size: 0.9em;
-  display: block;
-  margin-top: 5px;
-}
-
-.password-mismatch {
-  border-color: #d9534f !important;
-}
-
 .loading {
   text-align: center;
   padding: 40px;
-}
-
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-nav {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.password-strength-bar {
-  height: 8px;
-  width: 100%;
-  background-color: #ccc;
-  border-radius: 4px;
-  margin-top: 5px;
-  margin-bottom: 1em;
-  max-width: var( --input-width);
-}
-
-.strength-fill {
-  height: 100%;
-  width: 100%;
-  border-radius: 4px;
-  max-width: calc(var( --input-width) - 2.6em);
-  transition: width 0.3s ease;
-}
-
-.very-weak .strength-fill {
-  background-color: red;
-}
-
-.weak .strength-fill {
-  background-color: orange;
-}
-
-.medium .strength-fill {
-  background-color: yellow;
-}
-
-.strong .strength-fill {
-  background-color: lightgreen;
-}
-
-.very-strong .strength-fill {
-  background-color: green;
 }
 </style>

@@ -1,10 +1,20 @@
 <template>
-  <div class="welcome-section">
-    <IconNPELogo class="logo-left" />
-    <div class="greetings"><h1 class="red">Welcome on Santa Zapy</h1></div>
-    <IconNPELogo class="logo-right" />
-  </div>
-  <div class="container">
+  <section class="hero">
+    <IconNPELogo class="hero-logo" aria-hidden="true" />
+    <h1 class="hero-title">Santa Zapy</h1>
+    <p class="hero-tagline">Organise your Secret Santa: create a group, share your gift list and let the draw do the rest.</p>
+    <div v-if="isLoggedIn !== null" class="hero-actions">
+      <template v-if="isLoggedIn">
+        <RouterLink class="btn-primary" to="/groups">My groups</RouterLink>
+        <RouterLink class="btn-secondary" to="/mygifts">My gifts</RouterLink>
+      </template>
+      <template v-else>
+        <RouterLink class="btn-primary" to="/signup">Create an account</RouterLink>
+        <RouterLink class="btn-secondary" to="/login">Log in</RouterLink>
+      </template>
+    </div>
+  </section>
+  <div class="container" aria-hidden="true">
     <div class="santa santa_left"></div>
     <div class="presents">
       <IconNPELogo class="present present-1" />
@@ -16,25 +26,66 @@
 </template>
 
 <script setup>
-  import IconNPELogo from '@components/icons/IconNPELogo.vue'
+import { ref, onMounted } from 'vue'
+import { RouterLink } from 'vue-router'
+import config from '@config/config.json'
+import IconNPELogo from '@components/icons/IconNPELogo.vue'
+
+const isLoggedIn = ref(null)
+
+onMounted(async () => {
+  try {
+    const response = await fetch(`${config.api.protocol}://${config.api.ip}/api/myprofile`, {
+      credentials: 'include',
+      method: 'GET',
+      headers: { Accept: 'application/json' },
+    })
+    isLoggedIn.value = response.ok
+  } catch {
+    isLoggedIn.value = false
+  }
+})
 </script>
 
 <style scoped>
-h1 {
-  font-weight: 500;
-  font-size: clamp(1.8rem, 6vw, 2.6rem);
-  position: relative;
-  top: -10px;
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  padding: clamp(1.5rem, 5vw, 3.5rem) 1rem 1rem;
 }
 
-.greetings h1 {
-  text-align: center;
+.hero-logo {
+  width: 96px;
+  height: 102px;
+  filter: drop-shadow(0 6px 16px rgba(20, 13, 13, 0.25));
+}
+
+.hero-title {
+  font-size: clamp(2.4rem, 7vw, 4rem);
+}
+
+.hero-tagline {
+  max-width: 36rem;
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
 }
 
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 1rem;
 }
 
 .santa {
@@ -83,31 +134,6 @@ h1 {
   margin-right: -20px; /* This would make it overlap with the presents */
 }
 
-.welcome-section {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-bottom: -2em;
-  padding: 0 1em;
-  margin-top: 1em;
-  gap: 1em;
-  max-width: 100%;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
-/* Real layout size (the SVG has a viewBox), instead of scale: 0.5 which kept a 180px box */
-.logo-left,
-.logo-right {
-  width: 90px;
-  height: 96px;
-  flex-shrink: 0;
-}
-
-.logo-left {
-  justify-self: end;
-}
-
 /* Hide 2 presents when not enough space
    Calculation: 2 santas (225px each + 30px animation) + 3 presents (90px each) + gaps = ~800px needed */
 @media (max-width: 1079px) {
@@ -125,16 +151,6 @@ h1 {
   }
 
   .presents {
-    display: none;
-  }
-
-  .welcome-section {
-    justify-content: center;
-    padding: 0 0.5em;
-  }
-
-  .logo-left,
-  .logo-right {
     display: none;
   }
 }

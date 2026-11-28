@@ -266,7 +266,7 @@
   <form v-if="loaded" @submit.prevent="request_and_update_state">
     <fieldset v-if="state=='active'" >
       <legend>Secret Santa</legend>
-      <div v-if="resultMessage" :style="{ color: resultColor }">{{ resultMessage }}</div>
+      <div v-if="resultMessage" class="alert" :class="`alert-${resultColor}`">{{ resultMessage }}</div>
       <span>Secret Santa Active in this group</span>
       <div class="grid-wrapper">
         <span>Secret Santa Date : </span><span>{{sdateInput}}</span>
@@ -280,7 +280,7 @@
     </fieldset>
     <fieldset v-if="state=='modify'">
       <legend>Secret Santa</legend>
-      <div v-if="resultMessage" :style="{ color: resultColor }">{{ resultMessage }}</div>
+      <div v-if="resultMessage" class="alert" :class="`alert-${resultColor}`">{{ resultMessage }}</div>
       <span>Secret Santa Active in this group</span>
       <div class="form-wrapper grid-wrapper">
         <label for="sdateInput">Secret Santa Date*</label>
@@ -300,7 +300,7 @@
     </fieldset>
     <fieldset v-if="state=='inactive'">
       <legend>Secret Santa</legend>
-      <div v-if="resultMessage" :style="{ color: resultColor }">{{ resultMessage }}</div>
+      <div v-if="resultMessage" class="alert" :class="`alert-${resultColor}`">{{ resultMessage }}</div>
       <span>No Secret Santa Active in this group</span>
       <div class="form-wrapper grid-wrapper">
         <label for="sdateInput">Secret Santa Date*</label>
@@ -334,35 +334,4 @@
     margin: 0.5em;
     justify-self: start;
   }
-
-
-  nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  nav > a {
-    padding: 0.1em 0.5em;
-    border-radius: 0.5em;
-  }
-
-  a.forgot-password-link {
-    color: crimson;
-  }
-
-  a.forgot-password-link:hover {
-    background-color: rgba(220, 20, 60, 0.1);
-  }
-
-  .v-enter-active,
-  .v-leave-active {
-    transition: opacity 0.5s ease;
-  }
-
-  .v-enter-from,
-  .v-leave-to {
-    opacity: 0;
-  }
-
 </style>

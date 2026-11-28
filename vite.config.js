@@ -4,16 +4,22 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     vue(),
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      '@config': fileURLToPath(new URL('./config', import.meta.url)),
+      '@config': fileURLToPath(new URL(mode === 'local-api' ? './config/local' : './config', import.meta.url)),
       '@components' : fileURLToPath(new URL('./src/components/', import.meta.url)),
       '@views' : fileURLToPath(new URL('./src/views/', import.meta.url)),
     }
+  },
+  server: {
+    host: 'localhost',
+    port: 5173,
+    // A fallback port would break the CORS origin expected by the local back
+    strictPort: true,
   }
-})
+}))

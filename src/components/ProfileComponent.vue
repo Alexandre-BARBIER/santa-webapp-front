@@ -322,7 +322,7 @@
   <form v-if="loaded" @submit.prevent="request_back_to_read">
     <fieldset v-if="state=='readonly'" >
       <legend>Profile</legend>
-      <div v-if="resultMessage" :style="{ color: resultColor }">{{ resultMessage }}</div>
+      <div v-if="resultMessage" class="alert" :class="`alert-${resultColor}`">{{ resultMessage }}</div>
       <div class="grid-wrapper">
         <span>First Name</span> <span>{{first_name}}</span>
         <span>Last Name</span> <span>{{last_name}}</span>
@@ -338,7 +338,7 @@
     </fieldset>
     <fieldset v-if="state=='password'" >
       <legend>Profile</legend>
-      <div v-if="resultMessage" :style="{ color: resultColor }">{{ resultMessage }}</div>
+      <div v-if="resultMessage" class="alert" :class="`alert-${resultColor}`">{{ resultMessage }}</div>
       <div class="grid-wrapper">
         <span>First Name</span> <span>{{first_name}}</span>
         <span>Last Name</span> <span>{{last_name}}</span>
@@ -373,7 +373,7 @@
     </fieldset>
     <fieldset v-if="state=='delete'" >
       <legend>Profile</legend>
-      <div v-if="resultMessage" :style="{ color: resultColor }">{{ resultMessage }}</div>
+      <div v-if="resultMessage" class="alert" :class="`alert-${resultColor}`">{{ resultMessage }}</div>
       <div class="grid-wrapper">
         <span>First Name</span> <span>{{first_name}}</span>
         <span>Last Name</span> <span>{{last_name}}</span>
@@ -391,7 +391,7 @@
     </fieldset>
     <fieldset v-if="state=='update'">
       <legend>Profile</legend>
-      <div v-if="resultMessage" :style="{ color: resultColor }">{{ resultMessage }}</div>
+      <div v-if="resultMessage" class="alert" :class="`alert-${resultColor}`">{{ resultMessage }}</div>
       <div class="form-wrapper grid-wrapper" :class="{modify: myprofile}">
         <label for="first_name">First name*</label>
         <input required :class="{ wrong: !first_name }" autocomplete="off" placeholder="Enter your firstname" id="first_name" name="firstname" type="text" v-model="first_name">
@@ -425,72 +425,3 @@
   </form>
   </Transition>
 </template>
-
-<style scoped>
-  .password-strength-bar {
-    height: 8px;
-    width: 100%;
-    background-color: #ccc;
-    border-radius: 4px;
-    margin-top: 5px;
-    margin-bottom: 1em;
-    max-width: var( --input-width);
-  }
-
-  .strength-fill {
-    height: 100%;
-    width: 100%;
-    border-radius: 4px;
-    max-width: calc(var( --input-width) - 2.6em);
-    transition: width 0.3s ease;
-  }
-
-  .very-weak .strength-fill {
-    background-color: red;
-  }
-
-  .weak .strength-fill {
-    background-color: orange;
-  }
-
-  .medium .strength-fill {
-    background-color: yellow;
-  }
-
-  .strong .strength-fill {
-    background-color: lightgreen;
-  }
-
-  .very-strong .strength-fill {
-    background-color: green;
-  }
-
-  nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  nav > a {
-    padding: 0.1em 0.5em;
-    border-radius: 0.5em;
-  }
-
-  a.forgot-password-link {
-    color: crimson;
-  }
-
-  a.forgot-password-link:hover {
-    background-color: rgba(220, 20, 60, 0.1);
-  }
-
-  .v-enter-active,
-  .v-leave-active {
-    transition: opacity 0.5s ease;
-  }
-
-  .v-enter-from,
-  .v-leave-to {
-    opacity: 0;
-  }
-</style>

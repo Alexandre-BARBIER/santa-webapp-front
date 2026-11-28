@@ -36,6 +36,7 @@ const exclusionsKey = ref(0)
   
   /* Side by side when there is room, stacked (members first) otherwise */
   .panels {
+    gap: 0 1.5rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

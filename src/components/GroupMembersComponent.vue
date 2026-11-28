@@ -247,7 +247,7 @@
     <form v-if="loaded" @submit.prevent>
       <fieldset>
         <legend>Group Members</legend>
-        <div v-if="resultMessage" :style="{ color: resultColor }">{{ resultMessage }}</div>
+        <div v-if="resultMessage" class="alert" :class="`alert-${resultColor}`">{{ resultMessage }}</div>
 
         <div class="member-search">
           <input
@@ -345,10 +345,10 @@
     max-height: 12em;
     overflow-y: auto;
     list-style: none;
-    background-color: var(--table-back);
-    border: solid rgba(128, 128, 128, 0.5) 1px;
-    border-radius: 1em;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+    background-color: var(--color-surface-solid);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
   }
 
   .candidates li {
@@ -357,8 +357,8 @@
   }
 
   .candidates li:hover:not(.no-result) {
-    background-color: rgb(145, 0, 20);
-    color: #fff4f4;
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
   }
 
   .candidates li.no-result {
@@ -380,15 +380,5 @@
     display: table;
     width: 100%;
     min-width: 0;
-  }
-
-  .v-enter-active,
-  .v-leave-active {
-    transition: opacity 0.5s ease;
-  }
-
-  .v-enter-from,
-  .v-leave-to {
-    opacity: 0;
   }
 </style>

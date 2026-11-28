@@ -1,8 +1,9 @@
 <script setup>
-import { ref, watch, computed, onMounted, onUnmounted } from 'vue'
+import { ref, watch, onMounted, onUnmounted } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import config from '@config/config.json'
 import LogoutIcon from './icons/LogoutIcon.vue'
+import IconNPELogo from './icons/IconNPELogo.vue'
 
 const router = useRouter()
 
@@ -11,7 +12,7 @@ const userId = ref()
 const bannerRoutes = ref([])
 const isBurgerMenuOpen = ref(false)
 
-// Keep in sync with the (max-width: 640px) media queries in the <style> below
+// Below this width every link moves into the burger menu
 const mobileQuery = window.matchMedia('(max-width: 640px)')
 const isMobile = ref(mobileQuery.matches)
 
@@ -24,28 +25,6 @@ function onMobileQueryChange(event) {
 
 onMounted(() => mobileQuery.addEventListener('change', onMobileQueryChange))
 onUnmounted(() => mobileQuery.removeEventListener('change', onMobileQueryChange))
-
-// On mobile the bar keeps the first links; the burger menu only holds the overflow (no duplicates)
-const MOBILE_BAR_LINKS = 3
-
-const visibleRoutes = computed(() => {
-  if (isMobile.value) {
-    return bannerRoutes.value.slice(0, MOBILE_BAR_LINKS)
-  }
-  return bannerRoutes.value
-})
-
-const burgerMenuRoutes = computed(() => {
-  if (isMobile.value) {
-    return bannerRoutes.value.slice(MOBILE_BAR_LINKS)
-  }
-  return []
-})
-
-// Logout lives in the burger menu on mobile, so a logged-in user always needs it
-const showBurgerMenu = computed(() => {
-  return isMobile.value && (burgerMenuRoutes.value.length > 0 || isLoggedIn.value)
-})
 
 const { ip, protocol } = config.api
 const apiGetMyId = `${protocol}://${ip}/api/myprofile`
@@ -137,47 +116,32 @@ function closeBurgerMenu() {
 <template>
 <div>
   <transition name="fade">
-    <div v-if="isBurgerMenuOpen && showBurgerMenu" class="overlay" @click="closeBurgerMenu"></div>
+    <div v-if="isBurgerMenuOpen && isMobile" class="overlay" @click="closeBurgerMenu"></div>
   </transition>
-  
-  <nav class="header" :class="{ 'has-burger': showBurgerMenu }">
-    <RouterLink class="banner" v-for="(route) in visibleRoutes" :to="route.path" @click="closeBurgerMenu">{{ route.name }}</RouterLink>
-    
-    <div
-      v-if="showBurgerMenu"
-      class="burger-icon"
-      role="button"
-      tabindex="0"
-      aria-label="Menu"
-      :aria-expanded="isBurgerMenuOpen"
-      @click="toggleBurgerMenu"
-      @keydown.enter="toggleBurgerMenu"
-      @keydown.space.prevent="toggleBurgerMenu"
-    >
-      <div class="burger-line"></div>
-      <div class="burger-line"></div>
-      <div class="burger-line"></div>
+
+  <nav class="header">
+    <RouterLink to="/" class="brand" @click="closeBurgerMenu">
+      <IconNPELogo class="brand-logo" aria-hidden="true" />
+      <span>Santa Zapy</span>
+    </RouterLink>
+
+    <div v-if="!isMobile" class="links">
+      <RouterLink v-for="route in bannerRoutes" :key="route.path" class="nav-link" :to="route.path">{{ route.name }}</RouterLink>
+      <button v-if="isLoggedIn" type="button" class="logout" @click="logoutUser">
+        <LogoutIcon class="logout-icon" /><span>Logout</span>
+      </button>
     </div>
-    
-    <div v-show="isLoggedIn && !showBurgerMenu" @click="logoutUser" class="right logout">
-      <span>Logout</span>
-      <LogoutIcon class="logout-display" style="scale: 0.8;" />
-    </div>
-    
+
+    <button v-else type="button" class="burger-icon" aria-label="Menu" :aria-expanded="isBurgerMenuOpen" @click="toggleBurgerMenu">
+      <span class="burger-line"></span><span class="burger-line"></span><span class="burger-line"></span>
+    </button>
+
     <transition name="slide">
-      <div v-if="isBurgerMenuOpen && showBurgerMenu" class="burger-menu">
-        <RouterLink 
-          class="burger-menu-item" 
-          v-for="(route) in burgerMenuRoutes" 
-          :to="route.path"
-          @click="closeBurgerMenu"
-        >
-          {{ route.name }}
-        </RouterLink>
-        <div v-if="isLoggedIn" @click="logoutUser" class="burger-menu-item logout-item">
-          <span>Logout</span>
-          <LogoutIcon class="logout-display" style="scale: 0.8;" />
-        </div>
+      <div v-if="isBurgerMenuOpen && isMobile" class="burger-menu">
+        <RouterLink v-for="route in bannerRoutes" :key="route.path" class="burger-menu-item" :to="route.path" @click="closeBurgerMenu">{{ route.name }}</RouterLink>
+        <button v-if="isLoggedIn" type="button" class="burger-menu-item logout-item" @click="logoutUser">
+          <LogoutIcon class="logout-icon" /><span>Logout</span>
+        </button>
       </div>
     </transition>
   </nav>
@@ -185,73 +149,102 @@ function closeBurgerMenu() {
 </template>
 
 <style scoped>
-a.banner {
-  display: flex;
-  align-items: center;
-  height: var(--banner-height);
-  border-radius: 0;
-  padding-inline: 1em;
-}
-
-.right {
-  position: absolute;
-  right: 2em;
-}
-
-.logout {
-  display: flex;
-  gap: 0.5em;
-  align-items: center;
-  font-size: 0.8rem;
-
-  color: white;
-  transition: all 0.2s ease-in-out;
-}
-
-.logout:hover {
-  cursor: pointer;
-  scale: 1.15;
-}
-
 .header {
   position: fixed;
-  z-index: 1001;
   top: 0;
   left: 0;
   width: 100%;
-
-  margin: 0;
-
+  z-index: 1001;
   height: var(--banner-height);
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 4vw;
-  /* justify-content: space-evenly; */
-  flex-basis: auto;
-
-  background-color: rgb(182, 11, 20);
+  justify-content: space-between;
+  padding-inline: clamp(1rem, 4vw, 2.5rem);
+  background-color: var(--color-brand);
+  box-shadow: 0 2px 12px rgba(20, 13, 13, 0.25);
 }
 
-.header > a {
-  color: white;
-  font-size: 1rem;
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  padding: 0.2rem 0.4rem;
+}
+
+.brand:hover {
+  background-color: transparent;
+}
+
+.brand-logo {
+  width: 30px;
+  height: 32px;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  padding: 0.45em 0.9em;
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: var(--white);
+}
+
+.nav-link.router-link-active {
+  background-color: rgba(255, 255, 255, 0.18);
+  color: var(--white);
+}
+
+.logout {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  margin-left: 0.5rem;
+  padding: 0.35em 0.9em;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: var(--white);
+  border-radius: var(--radius-pill);
+  font-size: 0.9rem;
+}
+
+.logout:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.logout-icon {
+  width: 18px;
+  height: 18px;
 }
 
 .burger-icon {
-  display: none;
+  display: flex;
   flex-direction: column;
   gap: 4px;
-  cursor: pointer;
   /* 45x45px hit area (25px lines + 2*10px padding, 17px lines/gaps + 2*14px padding) */
   padding: 14px 10px;
+  background: none;
+  border: none;
   z-index: 1003;
 }
 
 .burger-line {
+  display: block;
   width: 25px;
   height: 3px;
-  background-color: white;
+  background-color: var(--white);
   border-radius: 2px;
   transition: all 0.3s ease;
 }
@@ -261,31 +254,35 @@ a.banner {
   top: var(--banner-height);
   left: 0;
   right: 0;
-  background-color: rgb(182, 11, 20);
   display: flex;
   flex-direction: column;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-brand);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1002;
 }
 
 .burger-menu-item {
   display: flex;
   align-items: center;
-  padding: 1em 2em;
-  color: white;
-  font-size: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  transition: background-color 0.2s ease;
-}
-
-.burger-menu-item:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-.logout-item {
-  cursor: pointer;
   gap: 0.5em;
-  justify-content: flex-start;
+  padding: 1em 1.5em;
+  color: var(--white);
+  font-size: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0;
+}
+
+button.burger-menu-item {
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: left;
+}
+
+.burger-menu-item:hover,
+.burger-menu-item.router-link-active {
+  background-color: rgba(0, 0, 0, 0.12);
 }
 
 .overlay {
@@ -319,41 +316,5 @@ a.banner {
 .slide-leave-to {
   transform: translateY(-100%);
   opacity: 0;
-}
-
-@media (max-width: 640px) {
-  .right {
-    right: 0.8em;
-  }
-
-  .header {
-    gap: 2vw;
-    justify-content: center;
-  }
-
-  /* Reserve room for the burger icon so it never overlaps the links */
-  .header.has-burger {
-    padding-left: 3.5rem;
-  }
-
-  .header > a {
-    font-size: 0.9rem;
-  }
-
-  .logout > span {
-    opacity: 0;
-  }
-
-  .burger-icon {
-    display: flex;
-    position: absolute;
-    left: 0.3em;
-  }
-}
-
-@media (max-width: 480px) {
-  a.banner {
-    padding-inline: 0.5em;
-  }
 }
 </style>

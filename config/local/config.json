@@ -1,0 +1,7 @@
+{
+  "api": {
+    "ip": "localhost:5000",
+    "protocol": "http"
+  },
+  "minLengthPassword": 10
+}

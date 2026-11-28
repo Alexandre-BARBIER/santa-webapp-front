@@ -137,7 +137,7 @@
     <form v-if="loaded">
       <fieldset>
         <legend>Secret Santa Exclusions</legend>
-        <div v-if="resultMessage" :style="{ color: resultColor }">{{ resultMessage }}</div>
+        <div v-if="resultMessage" class="alert" :class="`alert-${resultColor}`">{{ resultMessage }}</div>
         
         <p class="instructions">Add exclusions to prevent certain members from being paired with each other.</p>
         
@@ -199,40 +199,13 @@
   .info-box {
     margin-top: 1em;
     padding: 1em;
-    background-color: rgba(230, 230, 230, 0.3);
-    border-radius: 0.5em;
-    border: 1px solid rgba(200, 200, 200, 0.5);
+    background-color: var(--color-info-bg);
+    border-radius: var(--radius);
+    border: 1px solid var(--color-border);
   }
   
   .info-box h4 {
     margin-top: 0;
-    color: var(--color-text);
-  }
-  
-  select {
-    width: var(--input-width);
-    padding: 0.5em 1em;
-    border: solid rgba(0,0,0,0) var(--input-border-outline);
-    outline: solid rgba(128, 128, 128, 0.5) var(--input-border-outline);
-    border-radius: 2em;
-  }
-
-  /* Mobile: the 2-column grid (label | select) overflows because a select's width is fixed.
-     Stack label above select in a single shrinkable column instead. */
-  @media (max-width: 480px) {
-    .grid-wrapper {
-      grid-template-areas: none;
-      grid-template-columns: minmax(0, 1fr);
-    }
-
-    .grid-wrapper > label {
-      justify-self: start;
-    }
-
-    select {
-      width: 100%;
-      max-width: var(--input-width);
-    }
   }
   
   .table-wrapper {
@@ -249,15 +222,5 @@
     display: table;
     width: 100%;
     min-width: 0;
-  }
-
-  .v-enter-active,
-  .v-leave-active {
-    transition: opacity 0.5s ease;
-  }
-
-  .v-enter-from,
-  .v-leave-to {
-    opacity: 0;
   }
 </style>
