@@ -334,4 +334,17 @@
     margin: 0.5em;
     justify-self: start;
   }
+
+  /* The date row (3 inputs) is too wide next to its label inside a half-width card: stack them */
+  .form-wrapper.grid-wrapper {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 0.5rem;
+  }
+
+  .form-wrapper.grid-wrapper > label {
+    margin: 0;
+    padding: 0;
+    justify-self: center;
+  }
 </style>

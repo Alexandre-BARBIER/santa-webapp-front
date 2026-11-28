@@ -10,42 +10,48 @@ const exclusionsKey = ref(0)
 </script>
 
 <template>
-<div class="grid-wrapper">
+<div class="admin-grid">
   <GroupInfoComponent id="GroupInfoComponent"/>
   <GroupSecretComponent id="GroupSecretComponent"/>
-</div>
-<div class="panels">
   <GroupMembersComponent id="GroupMembersComponent" @changed="exclusionsKey++"/>
   <GroupExclusionsComponent id="GroupExclusionsComponent" :key="exclusionsKey"/>
 </div>
 </template>
 
 <style scoped>
-  .grid-wrapper {
-    border-radius: 0.3em;
-    gap: 0;
-    padding: 0.25em 0.8em;
-  }
-  #GroupInfoComponent {
-    justify-self: end;
-  }
-
-  #GroupSecretComponent {
-    justify-self: start;
-  }
-  
-  /* Side by side when there is room, stacked (members first) otherwise */
-  .panels {
-    gap: 0 1.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
+  /* 2x2 grid: info | secret santa, then members | exclusions. Cards of a row share the same height.
+     Single column (in that same order) when there is no room for two. */
+  .admin-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.75rem 1.75rem;
+    max-width: 1100px;
+    margin: 1.5rem auto;
   }
 
-  #GroupMembersComponent,
-  #GroupExclusionsComponent {
-    flex: 1 1 420px;
-    max-width: 600px;
+  /* The component roots are <form>s: let their card fill the grid cell */
+  .admin-grid > form {
+    margin: 0;
+    align-items: stretch;
+    min-width: 0;
+  }
+
+  .admin-grid > form :deep(fieldset) {
+    flex: 1;
+    width: 100%;
+  }
+
+  /* Cards are narrower than a standalone form: shrink the controls so they fit */
+  @media (min-width: 481px) {
+    .admin-grid {
+      --input-width: 17em;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .admin-grid {
+      grid-template-columns: minmax(0, 1fr);
+      max-width: 600px;
+    }
   }
 </style>

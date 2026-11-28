@@ -18,9 +18,9 @@ h1, h2, h3, h4 {
   line-height: 1.2;
 }
 h1 { font-size: clamp(1.9rem, 5vw, 2.8rem); }
-h2 { font-size: 1.6rem; }
-h3 { font-size: 1.2rem; text-align: center; }
-h4 { font-size: 1rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.3rem; text-align: center; }
+h4 { font-size: 1.1rem; }
 
 a,
 .red {
@@ -61,7 +61,7 @@ fieldset {
 
 legend {
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.3rem;
   font-weight: 600;
   padding: 0.25em 1em;
   color: var(--color-on-primary);
@@ -131,6 +131,7 @@ input[readonly] { opacity: 0.75; }
 input[type=number].birthdate-input,
 input[type=number].sdate-input {
   width: calc(var(--input-width) / 3 - 0.5rem);
+  padding-inline: 0.6em;
 }
 
 /* Switch (checkbox inside label.switch followed by span.slider) */

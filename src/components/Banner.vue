@@ -170,7 +170,7 @@ function closeBurgerMenu() {
   gap: 0.6rem;
   color: var(--white);
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: 1.6rem;
   font-weight: 600;
   padding: 0.2rem 0.4rem;
 }
@@ -180,8 +180,8 @@ function closeBurgerMenu() {
 }
 
 .brand-logo {
-  width: 30px;
-  height: 32px;
+  width: 34px;
+  height: 36px;
 }
 
 .links {
@@ -194,6 +194,7 @@ function closeBurgerMenu() {
   color: rgba(255, 255, 255, 0.85);
   padding: 0.45em 0.9em;
   border-radius: var(--radius-pill);
+  font-size: 1.1rem;
   font-weight: 500;
 }
 
@@ -217,7 +218,7 @@ function closeBurgerMenu() {
   border: 1px solid rgba(255, 255, 255, 0.5);
   color: var(--white);
   border-radius: var(--radius-pill);
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 .logout:hover {
@@ -225,8 +226,8 @@ function closeBurgerMenu() {
 }
 
 .logout-icon {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 
 .burger-icon {
@@ -267,7 +268,7 @@ function closeBurgerMenu() {
   gap: 0.5em;
   padding: 1em 1.5em;
   color: var(--white);
-  font-size: 1rem;
+  font-size: 1.15rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 0;
 }
