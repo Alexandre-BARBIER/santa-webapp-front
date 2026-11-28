@@ -35,8 +35,6 @@
   margin: 0 auto 2rem;
   padding: 2rem clamp(1.25rem, 4vw, 2.5rem);
   background-color: var(--color-surface);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);

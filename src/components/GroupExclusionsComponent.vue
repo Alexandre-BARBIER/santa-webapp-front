@@ -208,6 +208,21 @@
     margin-top: 0;
   }
   
+  /* Stack each label above its select: side by side they overflow a half-width card */
+  .form-wrapper.grid-wrapper {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 0.35rem;
+  }
+
+  .form-wrapper.grid-wrapper > label {
+    justify-self: center;
+  }
+
+  .form-wrapper.grid-wrapper > label:not(:first-child) {
+    margin-top: 0.5rem;
+  }
+
   .table-wrapper {
     align-self: stretch;
     overflow-x: auto;

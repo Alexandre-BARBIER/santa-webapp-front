@@ -44,7 +44,7 @@ const exclusionsKey = ref(0)
   /* Cards are narrower than a standalone form: shrink the controls so they fit */
   @media (min-width: 481px) {
     .admin-grid {
-      --input-width: 17em;
+      --input-width: 16em;
     }
   }
 

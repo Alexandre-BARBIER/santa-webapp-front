@@ -21,7 +21,7 @@ nav.footer {
   padding: 0.75rem 1rem;
   background-color: var(--color-footer);
   color: rgba(255, 255, 255, 0.6);
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 nav.footer a {

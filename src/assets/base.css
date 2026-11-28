@@ -23,7 +23,7 @@
 
   --color-background: var(--beige-100);
   --color-background-glow: rgba(182, 11, 20, 0.10);
-  --color-surface: rgba(253, 241, 241, 0.85);
+  --color-surface: rgba(253, 241, 241, 0.93);
   --color-surface-solid: var(--rose-50);
   --color-surface-raised: var(--white);
   --color-text: var(--indigo-800);
@@ -63,7 +63,7 @@
   --font-body: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 
-  --banner-height: 4rem;
+  --banner-height: 4.25rem;
   --footer-height: 3rem;
   --content-max: 1200px;
   --input-width: 20em;
@@ -75,7 +75,7 @@
   :root {
     --color-background: var(--brown-800);
     --color-background-glow: rgba(182, 11, 20, 0.25);
-    --color-surface: rgba(49, 18, 18, 0.85);
+    --color-surface: rgba(49, 18, 18, 0.92);
     --color-surface-solid: var(--brown-600);
     --color-surface-raised: rgba(20, 13, 13, 0.55);
     --color-text: rgba(235, 235, 235, 0.85);
@@ -116,7 +116,7 @@ body {
   background-attachment: fixed;
   line-height: 1.6;
   font-family: var(--font-body);
-  font-size: 17px;
+  font-size: 18px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -133,11 +133,11 @@ body {
   :root {
     --input-width: calc(100vw - 4em);
     --form-padding: 1em;
-    --banner-height: 3.5rem;
+    --banner-height: 3.75rem;
     --card-padding: 1rem 1.25rem;
   }
 
   body {
-    font-size: 15.5px;
+    font-size: 16.5px;
   }
 }
