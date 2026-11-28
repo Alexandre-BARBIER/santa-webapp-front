@@ -137,7 +137,7 @@
       <div v-if="loading" class="loading-spinner">Loading groups...</div>
       <div v-else class="form-wrapper grid-wrapper">
         <label for="group_select">Select Group</label>
-        <select id="group_select" v-model="selectedGroup" class="group-select">
+        <select id="group_select" v-model="selectedGroup">
           <option value="">-- Select a group --</option>
           <option v-for="group in groups" :key="group.id" :value="group.id">
             {{ group.name }} {{ group.visibility === 'protected' ? '(Protected)' : '' }}
@@ -151,7 +151,7 @@
       </div>
       
       <button type="submit" :disabled="loading">Join!</button>
-      <div v-if="resultMessage" :style="{ color: resultColor }">{{ resultMessage }}</div>
+      <div v-if="resultMessage" class="alert" :class="`alert-${resultColor}`">{{ resultMessage }}</div>
     </fieldset>
   </form>
 </template>
@@ -161,31 +161,5 @@
   text-align: center;
   margin: 1em 0;
   color: var(--color-text);
-}
-
-.group-select {
-  width: var(--input-width);
-  padding: 0.5em 1em;
-  border: solid rgba(0,0,0,0) var(--input-border-outline);
-  outline: solid rgba(128, 128, 128, 0.5) var(--input-border-outline);
-  border-radius: 2em;
-}
-
-/* Mobile: the 2-column grid (label | select) overflows because a select's width is fixed.
-   Stack label above select in a single shrinkable column instead. */
-@media (max-width: 480px) {
-  .grid-wrapper {
-    grid-template-areas: none;
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .grid-wrapper > label {
-    justify-self: start;
-  }
-
-  .group-select {
-    width: 100%;
-    max-width: var(--input-width);
-  }
 }
 </style>

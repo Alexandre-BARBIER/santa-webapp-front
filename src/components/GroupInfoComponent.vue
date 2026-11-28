@@ -105,16 +105,16 @@
         <label for="groupName">Group name*</label>
         <input required :class="{ wrong: !groupName }" autocomplete="off" placeholder="Enter a Group Name" id="groupName" name="groupName" type="text" v-model="groupName">
 
-        <label for="visibility_switch" class="switch">Protected</label>
+        <label for="visibility_switch">Protected</label>
         <label class="switch">
           <input type="checkbox" id="visibility_switch" v-model="visibility" true-value="protected" false-value="public">
-          <span class="slider round"></span>
+          <span class="slider"></span>
         </label>
 
         <label for="update_join_code_switch" >Edit Code</label>
         <label class="switch">
           <input type="checkbox" id="update_join_code_switch" v-model="update_code" true-value="true" false-value="false">
-          <span class="slider round"></span>
+          <span class="slider"></span>
         </label>
       <Transition>
         <label v-if="update_code=='true'" for="updated_join_code">Join Code</label>
@@ -153,154 +153,13 @@
     justify-self: start;
   }
 
-
-  nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  nav > a {
-    padding: 0.1em 0.5em;
-    border-radius: 0.5em;
-  }
-
-  a.forgot-password-link {
-    color: crimson;
-  }
-
-  a.forgot-password-link:hover {
-    background-color: rgba(220, 20, 60, 0.1);
-  }
-
-  .v-enter-active,
-  .v-leave-active {
-    transition: opacity 0.5s ease;
-  }
-
-  .v-enter-from,
-  .v-leave-to {
-    opacity: 0;
-  }
-
-  /* The switch - the box around the slider */
- .switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-#update_join_code_switch:checked + .slider {
-  background-color: rgb(184, 9, 9);;
-}
-
-#update_join_code_switch:focus + .slider {
-  box-shadow: 0 0 1px rgb(184, 9, 9);;
-}
-
-#update_join_code_switch:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-#visibility_switch:checked + .slider {
-  background-color: rgb(184, 9, 9);;
-}
-
-#visibility_switch:focus + .slider {
-  box-shadow: 0 0 1px rgb(184, 9, 9);;
-}
-
-#visibility_switch:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
 @media (max-width: 640px) {
-  .switch {
-    width: 50px;
-    height: 28px;
-  }
-
-  .slider:before {
-    height: 22px;
-    width: 22px;
-    left: 3px;
-    bottom: 3px;
-  }
-
-  #update_join_code_switch:checked + .slider:before,
-  #visibility_switch:checked + .slider:before {
-    transform: translateX(22px);
-  }
-
   .grid-wrapper {
     font-size: 0.9em;
   }
 }
 
 @media (max-width: 480px) {
-  .switch {
-    width: 45px;
-    height: 25px;
-  }
-
-  .slider:before {
-    height: 19px;
-    width: 19px;
-    left: 3px;
-    bottom: 3px;
-  }
-
-  #update_join_code_switch:checked + .slider:before,
-  #visibility_switch:checked + .slider:before {
-    transform: translateX(19px);
-  }
-
   .grid-wrapper {
     font-size: 0.85em;
   }

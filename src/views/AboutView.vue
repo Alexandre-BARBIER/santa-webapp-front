@@ -29,51 +29,41 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .about_text {
-  font-family: Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  line-height: 1.6;
-  margin-left: 15%;
-  margin-right: 15%;
-  margin-bottom: 2em;
-  background-color: rgba(253, 241, 241, 0.8);
-  border: solid rgba(128, 128, 128, 0.5) 1px;
-  border-radius: 1em;
-  padding: 1em 2em;
-}
-
-@media (prefers-color-scheme: dark) {
-  .about_text {
-    background-color: rgba(49, 18, 18, 0.8);
-  }
+  max-width: 760px;
+  margin: 0 auto 2rem;
+  padding: 2rem clamp(1.25rem, 4vw, 2.5rem);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
 }
 
 h1 {
-    color: #B60B14;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  margin-bottom: 1rem;
 }
 
 h2 {
-    color: #B60B14;
+  margin: 1.5rem 0 0.75rem;
 }
 
 p {
-    margin-bottom: 20px;
+  margin-bottom: 1rem;
 }
 
 ol {
-    margin-bottom: 20px;
+  padding-left: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 li {
-    margin-bottom: 10px;
+  margin-bottom: 0.75rem;
 }
 
 /* Styling important information */
 .important {
-    color: #B60B14;
+  color: var(--color-heading);
 }
-
 </style>

@@ -223,7 +223,7 @@
   <form v-if="loaded" @submit.prevent="requestSignUP">
     <fieldset>
       <legend>Sign-up!</legend>
-      <div v-if="resultMessage" :style="{ color: resultColor }">{{ resultMessage }}</div>
+      <div v-if="resultMessage" class="alert" :class="`alert-${resultColor}`">{{ resultMessage }}</div>
       <p v-if="inviteGroupName">You have been invited to join the group <b>{{ inviteGroupName }}</b>. Create your account to join it.</p>
       <div class="form-wrapper grid-wrapper">
 
@@ -261,10 +261,10 @@
             <input required v-model="bdateYearInput"  class="birthdate-input" :class="{ wrong: !bdateCorrectYearInput }"  placeholder="YYYY" type="number" name="bdateYear"  id="bdateYearInput">
           </div>
         
-        <label for="remember_me" class="switch">Remeber Me</label>
+        <label for="remember_me">Remember me</label>
           <label class="switch">
             <input type="checkbox" id="remember_me" v-model="remember_me" true-value="true" false-value="false">
-            <span class="slider round"></span>
+            <span class="slider"></span>
           </label>
 
       </div>
@@ -278,123 +278,3 @@
   </form>
   </Transition>
 </template>
-
-<style scoped>
-/* The switch - the box around the slider */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-#remember_me:checked + .slider {
-  background-color: rgb(184, 9, 9);;
-}
-
-#remember_me:focus + .slider {
-  box-shadow: 0 0 1px rgb(184, 9, 9);;
-}
-
-#remember_me:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-} 
-
-nav > a.red {
-  padding: 0.1em 0.5em;
-  border-radius: 0.5em;
-}
-
-.password-strength-bar {
-  height: 8px;
-  width: 100%;
-  background-color: #ccc;
-  border-radius: 4px;
-  margin-top: 5px;
-  margin-bottom: 1em;
-  max-width: var( --input-width);
-}
-
-.strength-fill {
-  height: 100%;
-  width: 100%;
-  border-radius: 4px;
-  max-width: calc(var( --input-width) - 2.6em);
-  transition: width 0.3s ease;
-}
-
-.very-weak .strength-fill {
-  background-color: red;
-}
-
-.weak .strength-fill {
-  background-color: orange;
-}
-
-.medium .strength-fill {
-  background-color: yellow;
-}
-
-.strong .strength-fill {
-  background-color: lightgreen;
-}
-
-.very-strong .strength-fill {
-  background-color: green;
-}
-
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
-}
-</style>
-
-

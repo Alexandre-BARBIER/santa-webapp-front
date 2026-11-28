@@ -1,91 +1,101 @@
-/* color palette from <https://github.com/vuejs/theme> */
+/* Santa Zapy palette (historical values kept) */
 :root {
-  --light-beige: #eee0db;
-  --vt-c-white: #ffffff;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
-
-  --vt-c-black: #140d0d;
-  --vt-c-black-soft: #331d1e;
-  --vt-c-black-mute: #4d1d1d;
-
-  --vt-c-indigo: #2c3e50;
-
-  --lighter-strong-red: rgb(255, 168, 168);
-  --strong-red: rgb(210,9,9);
-  --dark-strong-red: rgb(190, 20, 20);
-  --darker-strong-red: rgb(145, 0, 20);
-
-  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-  --vt-c-divider-light-2: rgba(60, 60, 60, 0.75);
-  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
-
-  --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
-  --vt-c-text-dark-1: var(--vt-c-white);
-  --vt-c-text-dark-2: rgba(235, 235, 235, 0.7);
+  --red-100: #ffa8a8;
+  --red-500: #d20909;
+  --red-600: #be1414;
+  --red-700: #b60b14;
+  --red-800: #910014;
+  --rose-50: #fdf1f1;
+  --rose-100: #f2dbdb;
+  --beige-100: #eee0db;
+  --brown-600: #311212;
+  --brown-700: #4d1d1d;
+  --brown-800: #331d1e;
+  --brown-900: #140d0d;
+  --green-700: #155c00;
+  --indigo-800: #2c3e50;
+  --white: #ffffff;
 }
 
-/* semantic color variables for this project */
+/* Semantic tokens */
 :root {
-  --wrong: var(--strong-red);
-  --active-tab: var(--strong-red);
-  --legend: var(--strong-red);
-  --hyperlink: var(--strong-red);
-  --button-action: var(--dark-strong-red);
-  --hover-submit-button: var(--dark-strong-red);
+  color-scheme: light dark;
 
-  --dark-table-row: #eacdc9;
-  --light-table-row: #ffe9e9;
-  --table-back: #f5dbd9;
-  --box-shadow-blur-radius: 10px;
+  --color-background: var(--beige-100);
+  --color-background-glow: rgba(182, 11, 20, 0.10);
+  --color-surface: rgba(253, 241, 241, 0.93);
+  --color-surface-solid: var(--rose-50);
+  --color-surface-raised: var(--white);
+  --color-text: var(--indigo-800);
+  --color-text-muted: rgba(44, 62, 80, 0.7);
+  --color-heading: var(--red-700);
+  --color-border: rgba(60, 60, 60, 0.18);
+  --color-border-strong: rgba(60, 60, 60, 0.35);
+  --color-link: var(--red-700);
+  --color-link-hover-bg: rgba(210, 9, 9, 0.08);
+  --color-brand: var(--red-700);
+  --color-footer: var(--brown-900);
+  --color-primary: var(--red-800);
+  --color-primary-hover: var(--red-600);
+  --color-on-primary: var(--rose-50);
+  --color-success: var(--green-700);
+  --color-success-bg: rgba(21, 92, 0, 0.10);
+  --color-error: var(--red-500);
+  --color-error-bg: rgba(210, 9, 9, 0.08);
+  --color-info-bg: rgba(44, 62, 80, 0.08);
 
-  --color-background: var(--light-beige);
-  --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
+  --table-head-bg: var(--red-800);
+  --table-head-text: var(--rose-100);
+  --table-row: #ffe9e9;
+  --table-row-alt: #f5dbd9;
+  --table-row-hover: #eacdc9;
 
-  --color-border: var(--vt-c-divider-light-2);
-  --color-border-hover: var(--vt-c-divider-light-1);
+  --focus-ring: 0 0 0 3px rgba(210, 9, 9, 0.30);
+  --shadow-card: 0 10px 30px rgba(20, 13, 13, 0.12);
+  --shadow-button: 0 4px 12px rgba(145, 0, 20, 0.25);
 
-  --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 18px;
+  --radius-pill: 999px;
 
-  --section-gap: 160px;
+  --font-display: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+  --font-body: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+
+  --banner-height: 4.25rem;
+  --footer-height: 3rem;
+  --content-max: 1200px;
   --input-width: 20em;
-
-  --banner-height: 2.8rem;
-  --footer-height: 3.6rem;
   --form-padding: 2em;
-  --fieldset-padding: 1em 2em;
-
-  --input-border-outline: 1px;
-
-  --cancel-button-background: var(--vt-c-text-dark-2);
-  --cancel-button-background-hover: var(--vt-c-text-light-2);
+  --card-padding: 1.5rem 2rem;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: var(--vt-c-black-soft);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
-    
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
-    
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
+    --color-background: var(--brown-800);
+    --color-background-glow: rgba(182, 11, 20, 0.25);
+    --color-surface: rgba(49, 18, 18, 0.92);
+    --color-surface-solid: var(--brown-600);
+    --color-surface-raised: rgba(20, 13, 13, 0.55);
+    --color-text: rgba(235, 235, 235, 0.85);
+    --color-text-muted: rgba(235, 235, 235, 0.6);
+    --color-heading: var(--rose-100);
+    --color-border: rgba(255, 255, 255, 0.12);
+    --color-border-strong: rgba(255, 255, 255, 0.25);
+    --color-link: var(--red-100);
+    --color-link-hover-bg: rgba(255, 168, 168, 0.12);
+    --color-success: #90ee90;
+    --color-success-bg: rgba(144, 238, 144, 0.10);
+    --color-error: var(--red-100);
+    --color-error-bg: rgba(255, 168, 168, 0.12);
+    --color-info-bg: rgba(255, 255, 255, 0.06);
 
-    --light-table-row: #402727;
-    --dark-table-row: #302020;
-    --table-back: #352424;
+    --table-row: #402727;
+    --table-row-alt: #302020;
+    --table-row-hover: var(--brown-700);
 
-    --input-border-outline: 2px;
-    --box-shadow-blur-radius: 20px;
-
-    --cancel-button-background: var(--vt-c-text-light-2);
-    --cancel-button-background-hover: var(--vt-c-text-dark-2);
+    --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.45);
   }
 }
 
@@ -99,61 +109,35 @@
 
 body {
   overflow-x: hidden;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
   min-height: 100dvh;
   color: var(--color-text);
-  background: var(--color-background);
-  transition:
-    color 0.5s,
-    background-color 0.5s;
+  background-color: var(--color-background);
+  background-image: radial-gradient(ellipse at top, var(--color-background-glow), transparent 60%);
+  background-attachment: fixed;
   line-height: 1.6;
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    sans-serif;
-  font-size: 15px;
+  font-family: var(--font-body);
+  font-size: 18px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Tablet breakpoint */
 @media (max-width: 768px) {
   :root {
     --input-width: 16em;
-    --section-gap: 80px;
     --form-padding: 1.5em;
-    --fieldset-padding: 1em 1.5em;
-  }
-
-  body {
-    font-size: 14px;
   }
 }
 
-/* Mobile breakpoint */
 @media (max-width: 480px) {
   :root {
     --input-width: calc(100vw - 4em);
-    --section-gap: 40px;
     --form-padding: 1em;
-    --fieldset-padding: 0.8em 1em;
-    --banner-height: 2.5rem;
-    --footer-height: 3.2rem;
+    --banner-height: 3.75rem;
+    --card-padding: 1rem 1.25rem;
   }
 
   body {
-    font-size: 13px;
+    font-size: 16.5px;
   }
 }

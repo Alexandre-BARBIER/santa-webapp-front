@@ -142,35 +142,3 @@ async function RequestUnselectGift(gift_id_to_unselect) {
   </form>
   </Transition>
 </template>
-
-<style scoped>
-  nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  nav > a {
-    padding: 0.1em 0.5em;
-    border-radius: 0.5em;
-  }
-
-  a.forgot-password-link {
-    color: crimson;
-  }
-
-  a.forgot-password-link:hover {
-    background-color: rgba(220, 20, 60, 0.1);
-  }
-
-  .v-enter-active,
-  .v-leave-active {
-    transition: opacity 0.5s ease;
-  }
-
-  .v-enter-from,
-  .v-leave-to {
-    opacity: 0;
-  }
-
-</style>

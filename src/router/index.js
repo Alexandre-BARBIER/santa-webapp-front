@@ -22,11 +22,10 @@ const router = createRouter({
       name: "Home",
       meta: {
         requiresAuth: false,
-        displayOnUserBanner: true,
-        displayOnBanner: true
+        displayOnUserBanner: false,
+        displayOnBanner: false
       },
       component: HomeView,
-      props: { isLoggedIn: false }
     },
     {
       path: "/about",

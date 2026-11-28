@@ -1,3 +1,4 @@
+import '@fontsource-variable/fraunces'
 import './assets/main.css'
 
 import { createApp } from 'vue'

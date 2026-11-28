@@ -63,30 +63,3 @@
     </nav>
   </fieldset>
 </template>
-
-<style scoped>
-.success-message {
-  background-color: #d4edda;
-  border: 1px solid #c3e6cb;
-  color: #155724;
-  padding: 12px;
-  border-radius: 4px;
-  margin-bottom: 15px;
-}
-
-.error-message {
-  background-color: #f8d7da;
-  border: 1px solid #f5c6cb;
-  color: #721c24;
-  padding: 12px;
-  border-radius: 4px;
-  margin-bottom: 15px;
-}
-
-nav {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-</style>

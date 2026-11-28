@@ -74,11 +74,11 @@ function redirect_to_group(groupID) {
               </tr>
             </thead>
             <tbody>
-              <tr id="group_button" v-for="group in my_groups" :key="group.id">
+              <tr class="clickable-row" v-for="group in my_groups" :key="group.id">
                 <td @click="redirect_to_group(group.id)">{{group.id}}</td>
                 <td @click="redirect_to_group(group.id)">{{group.name}}</td>
                 <td @click="redirect_to_group(group.id)">{{group.secret_santa}}</td>
-                <td><button class="leave-group-btn" @click="quitGroup(group.id)">Leave Group</button></td>
+                <td><button type="button" class="delete" @click="quitGroup(group.id)">Leave Group</button></td>
               </tr>
             </tbody>
           </table>
@@ -89,97 +89,3 @@ function redirect_to_group(groupID) {
     </form>
   </Transition>
 </template>
-
-
-<style scoped>
-  nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  nav > a {
-    padding: 0.1em 0.5em;
-    border-radius: 0.5em;
-  }
-
-  a.forgot-password-link {
-    color: crimson;
-  }
-
-  a.forgot-password-link:hover {
-    background-color: rgba(220, 20, 60, 0.1);
-  }
-
-  .v-enter-active,
-  .v-leave-active {
-    transition: opacity 0.5s ease;
-  }
-
-  .v-enter-from,
-  .v-leave-to {
-    opacity: 0;
-  }
-
-.leave-group-btn {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #dc3545; /* Red color */
-  color: #fff; /* White text color */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.leave-group-btn:hover {
-  background-color: #c82333; /* Darker red color on hover */
-}
-
-#group_button {
-  cursor: pointer;
-  text-decoration: underline;
-  color: var(--color-text);
-  transition: all 0.3s ease;
-  padding: 8px;
-  border-radius: 0; 
-}
-#group_button:hover {
-  background-color: rgb(21, 92, 0);
-  border-radius: 15px;
-  color: white;
-  transform: scale(0.98);
-  font-size: 1.0em;
-  transition: all 0.3s ease;
-}
-
-@media (max-width: 640px) {
-  .leave-group-btn {
-    padding: 8px 12px;
-    font-size: 14px;
-  }
-
-  #group_button {
-    padding: 6px;
-    font-size: 0.9em;
-  }
-}
-
-@media (max-width: 480px) {
-  .leave-group-btn {
-    padding: 6px 10px;
-    font-size: 12px;
-  }
-
-  #group_button {
-    padding: 4px;
-    font-size: 0.85em;
-  }
-
-  #group_button:hover {
-    transform: scale(1);
-  }
-}
-
-</style>
